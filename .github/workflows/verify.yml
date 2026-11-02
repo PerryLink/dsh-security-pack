@@ -1,0 +1,178 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: skill pack + plugin_vet verification (25 checks, both language editions)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout skill pack
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout deepseek-harness
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: deepseek-ai/deepseek-harness
+          # Pinned for reproducible verification; bump in the same PR as any
+          # peer-dependency change (see docs/release-checklist.md).
+          ref: d347e703908d0406b7a7ef80e3a0e594d86b2215
+          path: harness
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86
+        with:
+          version: 11.7.0
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: harness/pnpm-lock.yaml
+
+      - name: Install harness workspace
+        working-directory: harness
+        run: pnpm install --frozen-lockfile
+
+      # The pack's own type ruler: `check:ci` existed as a script but this repo
+      # gates under verify.yml (no ci.yml), so no job ever invoked it (G-4b).
+      # It needs the pack's devDependencies, which nothing installed before.
+      - name: Install skill pack dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck (published line)
+        run: pnpm run check:ci
+
+      - name: Readme sync (five languages)
+        run: pnpm run check:readmes
+
+      - name: Run skill pack verification
+        working-directory: harness
+        env:
+          DSH_HARNESS_CHECKOUT: ${{ github.workspace }}/harness
+        run: pnpm exec tsx "${{ github.workspace }}/verify/verify-skill-pack.mts"
+
+      - name: Exercise install.sh (dry-run, en → zh, uninstall)
+        run: |
+          export DSH_AGENTS_HOME="$(mktemp -d)"
+          bash scripts/install.sh --target user-agents --language en --dry-run
+          test ! -f "$DSH_AGENTS_HOME/skills/.dsh-security-pack.manifest"
+          bash scripts/install.sh --target user-agents --language en
+          test -f "$DSH_AGENTS_HOME/skills/security-audit/SKILL.md"
+          test -d "$DSH_AGENTS_HOME/skills/supply-chain-review/references"
+          test -f "$DSH_AGENTS_HOME/skills/.dsh-security-pack.manifest"
+          export DSH_HOME="$(mktemp -d)"
+          bash scripts/install.sh --target user-dsh --language zh
+          test -f "$DSH_HOME/skills/security-audit/SKILL.md"
+          grep -q '安全审计总览' "$DSH_HOME/skills/security-audit/SKILL.md"
+          grep -q 'Security audit overview' "$DSH_AGENTS_HOME/skills/security-audit/SKILL.md"
+          bash scripts/install.sh --target user-agents --language en --uninstall
+          test ! -d "$DSH_AGENTS_HOME/skills/security-audit"
+          test ! -f "$DSH_AGENTS_HOME/skills/.dsh-security-pack.manifest"
+
+  verify-windows:
+    name: skill pack verification + install.ps1 exercise (windows)
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout skill pack
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout deepseek-harness
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: deepseek-ai/deepseek-harness
+          # Pinned for reproducible verification; bump with peer-dependency changes.
+          ref: d347e703908d0406b7a7ef80e3a0e594d86b2215
+          path: harness
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86
+        with:
+          version: 11.7.0
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: harness/pnpm-lock.yaml
+
+      - name: Install harness workspace
+        working-directory: harness
+        run: pnpm install --frozen-lockfile
+
+      - name: Run skill pack verification
+        working-directory: harness
+        env:
+          DSH_HARNESS_CHECKOUT: ${{ github.workspace }}/harness
+        run: pnpm exec tsx "${{ github.workspace }}/verify/verify-skill-pack.mts"
+
+      - name: Exercise install.ps1 (zh → en → uninstall)
+        shell: pwsh
+        run: |
+          $dshHome = Join-Path $env:RUNNER_TEMP ("dsh-home-" + [guid]::NewGuid().ToString("N"))
+          $env:DSH_HOME = $dshHome
+          pwsh -NoProfile -File scripts/install.ps1 -Target user-dsh -Language zh
+          if (-not (Test-Path "$dshHome/skills/security-audit/SKILL.md")) { throw "zh security-audit missing" }
+          if (-not (Test-Path "$dshHome/skills/.dsh-security-pack.manifest")) { throw "manifest missing" }
+          if (-not (Select-String -Quiet -Path "$dshHome/skills/security-audit/SKILL.md" -Pattern '安全审计总览')) { throw "zh body missing" }
+          pwsh -NoProfile -File scripts/install.ps1 -Target user-dsh -Language en
+          if (-not (Select-String -Quiet -Path "$dshHome/skills/security-audit/SKILL.md" -Pattern 'Security audit overview')) { throw "en body missing" }
+          pwsh -NoProfile -File scripts/install.ps1 -Target user-dsh -Language en -Uninstall
+          if (Test-Path "$dshHome/skills/security-audit") { throw "uninstall left skill dirs behind" }
+          if (Test-Path "$dshHome/skills/.dsh-security-pack.manifest") { throw "uninstall left manifest behind" }
+
+  provider:
+    name: provider plugin build + pack smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout skill pack
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86
+        with:
+          version: 11.7.0
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+
+      - name: Install provider (standalone)
+        working-directory: provider
+        run: pnpm install --frozen-lockfile
+
+      - name: Build provider
+        working-directory: provider
+        run: pnpm run build
+
+      - name: Built artifacts exist
+        run: |
+          test -f provider/lib/index.js
+          test -f provider/lib/types/index.d.ts
+          test -f provider/lib/vet/config.js
+          test -f provider/lib/vet/tool.js
+
+      - name: Pack smoke
+        working-directory: provider
+        run: pnpm pack --pack-destination .tmp
+
+      - name: Tarball carries built artifacts, both embedded editions, and the bundle patch
+        working-directory: provider
+        run: |
+          tar -tzf .tmp/*.tgz | grep -q 'package/lib/index.js'
+          tar -tzf .tmp/*.tgz | grep -q 'package/lib/types/index.d.ts'
+          tar -tzf .tmp/*.tgz | grep -q 'package/lib/vet/config.js'
+          tar -tzf .tmp/*.tgz | grep -q 'package/lib/vet/tool.js'
+          tar -tzf .tmp/*.tgz | grep -q 'package/pack/skills/security-audit/SKILL.md'
+          tar -tzf .tmp/*.tgz | grep -q 'package/pack/skills-en/security-audit/SKILL.md'
+          tar -tzf .tmp/*.tgz | grep -q 'package/cordis.patch.yml'

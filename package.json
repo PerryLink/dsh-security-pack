@@ -1,0 +1,99 @@
+{
+  "name": "dsh-security-pack-workspace",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Automated plugin supply-chain security gate for DeepSeek Harness (dsh): eight agent skills in Chinese and English editions teach the audit methodology, and the plugin_vet tool executes the pre-install gate (license / SBOM / commit pinning / malicious patterns / five-dimension risk card) with findings that cite the matching skill sections.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "check:readmes": "node scripts/check-readme-sync.mjs",
+    "check": "node scripts/typecheck-checkout.mjs",
+    "check:ci": "tsc -p tsconfig.check.ci.json"
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0 || >=0.1.7-0 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.1-0 <0.3.0"
+  },
+  "packageManager": "pnpm@11.7.0",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skill-pack",
+    "skills",
+    "security",
+    "security-audit",
+    "supply-chain",
+    "plugin-vet",
+    "gate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PerryLink/dsh-security-pack.git"
+  },
+  "dependencies": {
+    "dsh-security-pack": "3.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-skill-filesystem": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0 || >=0.1.7-0 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.1-0 <0.3.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-skill-filesystem": "0.2.1-alpha.1",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./provider/cordis.patch.yml"
+    }
+  },
+  "dshWorkshop": {
+    "schema": "omdsh-workshop-package/v1",
+    "type": "plugin",
+    "integration": {
+      "protocol": "harness-profile",
+      "artifact": "provider/cordis.patch.yml"
+    },
+    "install": {
+      "mode": "transactional",
+      "adapter": "profile-bundle",
+      "failurePolicy": "generation-rollback",
+      "touchesCurrentBeforeActivation": false
+    },
+    "lifecycle": {
+      "activation": "restart-profile",
+      "dispose": "supported"
+    },
+    "permissions": [
+      "files:read",
+      "network:fetch"
+    ],
+    "compatibility": {
+      "dshVersions": [
+        "0.1.2-rc.1",
+        "0.1.5-rc.2",
+        "0.1.7-alpha.2",
+        "0.1.7-rc.1",
+        "0.1.7-rc.2",
+        "0.2.1-alpha.1"
+      ]
+    },
+    "capability": {
+      "id": "skill-pack-security",
+      "kind": "tool-bundle+provider",
+      "invocation": "boot the RC.6 candidate Profile with the bundle mounted (config.language zh|en), call ctx.skills.get('security-audit') through the @deepseek-ai/dsh-skill-filesystem provider contract, and execute the plugin_vet tool against a GitHub owner/repo target",
+      "expected": "ctx.skills.get('security-audit') resolves the mounted edition AND ctx.tools has plugin_vet, whose report cites skill sections for manual follow-up"
+    },
+    "evidence": {
+      "install": null,
+      "failureIsolation": null,
+      "hotReload": null,
+      "remove": null
+    }
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/PerryLink"
+  }
+}

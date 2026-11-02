@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-security-pack-hero.png",
+    "kind": "hero",
+    "alt": "plugin_vet PASS report",
+    "caption": "Real demo artifact: overall 96/100, PASS."
+  },
+  {
+    "path": "docs/assets/dsh-security-pack-demo.gif",
+    "kind": "demo",
+    "alt": "Animated plugin_vet terminal session",
+    "caption": "The same report, assembled line by line."
+  }
+]

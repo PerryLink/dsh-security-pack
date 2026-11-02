@@ -1,0 +1,33 @@
+# The provider is this repository's own package, pinned to an exact published
+# version and reviewed in-tree, so it is exempt from the minimum-release-age
+# gate. pnpm matches package names/patterns here (not `name@version` specs):
+# the earlier `@<version>` entries never applied to the lockfile policy check,
+# which only passed while the local metadata cache was warm and failed on a
+# cold CI runner with ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION.
+minimumReleaseAgeExclude:
+  - 'dsh-security-pack'
+  - '@deepseek-ai/cosmokit@1.8.5 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-brand@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-fs@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-home-paths@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-sandbox@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-skill-filesystem@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-skill@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-util-values@0.1.7-alpha.2 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/schemastery@3.18.4 || 0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-brand@0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-fs@0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-home-paths@0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-sandbox@0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-skill-filesystem@0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-skill@0.1.7-rc.2 || 0.2.1-alpha.1'
+  - '@deepseek-ai/dsh-util-values@0.1.7-rc.2 || 0.2.1-alpha.1'
+# pnpm >= 10 enables a 1440-minute minimum release age by default, and its
+# lockfile supply-chain verification pass ignores `minimumReleaseAgeExclude`
+# (both exact `pkg@version` entries and `@scope/*` patterns) — so a freshly
+# published @deepseek-ai wave keeps every `pnpm run` red with
+# ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION for 24h after each harness release.
+# The sibling PerryLink plugins disable the age gate for the same reason; the
+# exclusion list above stays as the documented intent.
+minimumReleaseAge: 0
+verifyDepsBeforeRun: false
