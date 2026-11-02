@@ -47,7 +47,7 @@ export const Config = z.object({
         maxExtractBytes: z.natural().min(1024).max(512 * 1024 * 1024).default(64 * 1024 * 1024),
         maxDepNodes: z.natural().min(1).max(10000).default(600),
         maxFindingsPerCheck: z.natural().min(1).max(100).default(12),
-        userAgent: z.string().max(200).default('dsh-security-pack/3.0.0 (+https://github.com/PerryLink/dsh-security-pack)'),
+        userAgent: z.string().max(200).default('dsh-security-pack/3.0.1 (+https://github.com/PerryLink/dsh-security-pack)'),
         dataResponsibility: z.boolean().default(true),
         externalScanners: z.boolean().default(true),
         gate: z.object({

@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1] - 2026-11-02
+
+### Fixed
+
+- Rebuilt the embedded `pack/` skills so their `metadata.version` matches the package `VERSION` (3.0.1); the 3.0.0 tarball embedded 2.2.25-era skill metadata.
+- Rebuilt `provider/lib` with the 3.0.1 user agent.
+
 ## [3.0.0] - 2026-11-02
 
 ### Changed

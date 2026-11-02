@@ -1,6 +1,6 @@
 {
   "name": "dsh-security-pack",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Security-audit skill pack + plugin_vet supply-chain gate for DeepSeek Harness: eight bilingual skills and a pre-install gate (license / SBOM / commit pinning / malicious patterns / five-dimension risk card).",
   "type": "module",
   "main": "lib/index.js",
