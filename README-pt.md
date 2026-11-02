@@ -222,7 +222,7 @@ Todas as opções são campos Schemastery `Config` (modificáveis a partir do co
 | `vet.maxFindingsPerCheck` | `12` | Teto de achados por verificação |
 | `vet.dataResponsibility` | `true` | Executa a revisão de responsabilidade de dados (desativável por implantação) |
 | `vet.externalScanners` | `true` | Orquestra `osv-scanner`/`npm audit` quando seus CLIs estão presentes; `false` força a verificação de dependências autoconsultada integrada |
-| `vet.userAgent` | `dsh-security-pack/2.2.24 (+https://github.com/PerryLink/dsh-security-pack)` | User-agent de download |
+| `vet.userAgent` | `dsh-security-pack/3.0.0 (+https://github.com/PerryLink/dsh-security-pack)` | User-agent de download |
 | `vet.gate.policy` | `warn` | Portão de instalação: `warn` (não bloqueante) ou `deny` (bloqueia ante FAIL) |
 
 ## Tools & surfaces
