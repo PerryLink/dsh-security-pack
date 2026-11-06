@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-dark.svg">
-  <img src="docs/assets/dsh-security-pack-flow-light.svg" width="100%" alt="dsh-security-pack 工作流：skills/ 与 skills-en/ 经 ctx.skills 进入 skill 工具；plugin_vet 经 ctx.tools 扫描 owner/repo，输出 license · SBOM · commit lock · malicious · risk card → gate warn|deny">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-security-pack-hero-zh-light.webp" width="100%" alt="dsh-security-pack 配图：左侧是插件名、两行价值句与门禁说明；右侧是 plugin_vet 检查器——目标（owner/repo、npm 包或本地路径）先过九项静态检查，再汇成五维加权风险卡（PASS / WARN / FAIL）与 gate warn|deny 策略条">
 </picture>
 
 # dsh-security-pack
@@ -35,6 +35,11 @@ dsh plugin --profile <name> add dsh-security-pack
 ## 它是什么
 
 `dsh-security-pack` 把 8 套安全审计方法论做成 `SKILL.md` 技能，并附带一个安装前供应链扫描器。模型在会话目录里发现技能，用 `skill` 工具按需加载；`plugin_vet` 由可选的 `provider/` 插件注册到 `ctx.tools`，对 GitHub `owner/repo` 或本地包路径做一次静态体检。技能负责「怎么审」，工具负责「先扫一遍」——两者共用同一套方法论，每条发现都会指回对应技能章节。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-security-pack-flow-v5-light.svg" width="100%" alt="dsh-security-pack 结构图：profile patch 开出两条通道——技能通道（skills/ 与 skills-en/ 按 rank 发现，经 ctx.skills 进入 skill 工具按需加载；8 个技能里 4 个被检查引用）与 plugin_vet 门禁通道（target → 文件集 → 9 项检查）；两条通道汇入同一张风险卡与安装门禁，发现再指回技能章节">
+</picture>
 
 ## 三步上手
 
@@ -359,7 +364,7 @@ node scripts/check-readme-sync.mjs  # 五语 README 结构与配置键一致性
 
 ### 配图复跑
 
-README 的 hero 流程图与实测图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow）：运行 `python scripts/gen-readme-assets.py` 即可重出 `docs/assets/dsh-security-pack-flow-{light,dark}.svg` 与 `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp`。
+README 的 hero 横幅、结构图与实测图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（hero 用 Pillow 画，结构图用手写 SVG 画）：运行 `python scripts/gen-readme-assets.py` 即可重出 `docs/assets/dsh-security-pack-hero-{zh,en}-{light,dark}.webp`、`docs/assets/dsh-security-pack-flow-v5-{light,dark}.svg` 与 `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp`；旧的单版流程图仍留在 `docs/assets/` 供外链使用。
 
 ### 目录布局
 

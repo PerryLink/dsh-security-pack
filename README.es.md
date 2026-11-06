@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-dark.svg">
-  <img src="docs/assets/dsh-security-pack-flow-light.svg" width="100%" alt="Flujo de dsh-security-pack: skills/ y skills-en/ entran en la herramienta skill vía ctx.skills; plugin_vet escanea un owner/repo vía ctx.tools y emite license · SBOM · commit lock · malicious · risk card → gate warn|deny">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-hero-en-dark.webp">
+  <img src="docs/assets/dsh-security-pack-hero-en-light.webp" width="100%" alt="Banner de dsh-security-pack: a la izquierda el nombre, dos frases de valor y la nota de la puerta; a la derecha el verificador plugin_vet — un objetivo (owner/repo, paquete npm o ruta local) pasa por nueve comprobaciones estáticas y se resume en una tarjeta de riesgo de cinco dimensiones ponderadas (PASS / WARN / FAIL) con la franja de política gate warn|deny">
 </picture>
 
 # dsh-security-pack
@@ -35,6 +35,11 @@ dsh plugin --profile <name> add dsh-security-pack
 ## Qué es
 
 `dsh-security-pack` convierte ocho metodologías de auditoría de seguridad en skills `SKILL.md` y añade un escáner de cadena de suministro previo a la instalación. El modelo descubre las skills en el catálogo de sesión y las carga bajo demanda con la herramienta `skill`; `plugin_vet` lo registra en `ctx.tools` el plugin opcional `provider/` y somete un `owner/repo` de GitHub o una ruta local a una revisión estática. Las skills enseñan *cómo auditar*; la herramienta hace *la primera pasada*: ambas comparten una metodología y cada hallazgo apunta de vuelta a la sección de skill correspondiente.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-security-pack-flow-v5-light.svg" width="100%" alt="Estructura de dsh-security-pack: el patch del perfil abre dos canales — el de skills (skills/ y skills-en/ descubiertos por rank, registrados en ctx.skills y cargados bajo demanda con la herramienta skill; 4 de las 8 skills son citadas por las comprobaciones) y el canal de puerta plugin_vet (objetivo → conjunto de archivos → nueve comprobaciones); ambos confluyen en una sola tarjeta de riesgo y una sola puerta de instalación, y cada hallazgo cita una sección de skill">
+</picture>
 
 ## Instalación en tres pasos
 
@@ -359,7 +364,7 @@ El conjunto de regresión de muestras envenenadas (tasa de detección / FPR / F1
 
 ### Regenerar las imágenes
 
-El diagrama de flujo hero y el gráfico de datos medidos se generan con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow): ejecuta `python scripts/gen-readme-assets.py` para reescribir `docs/assets/dsh-security-pack-flow-{light,dark}.svg` y `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp`.
+El banner hero, el diagrama de estructura y el gráfico de datos medidos se generan con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow para el hero, SVG escrito a mano para el diagrama de estructura): ejecuta `python scripts/gen-readme-assets.py` para reescribir `docs/assets/dsh-security-pack-hero-{zh,en}-{light,dark}.webp`, `docs/assets/dsh-security-pack-flow-v5-{light,dark}.svg` y `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp`; el diagrama de flujo antiguo de una sola piel permanece en `docs/assets/` para enlaces externos.
 
 ### Estructura
 

@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-dark.svg">
-  <img src="docs/assets/dsh-security-pack-flow-light.svg" width="100%" alt="dsh-security-pack वर्कफ़्लो: skills/ और skills-en/ ctx.skills से skill टूल में जाते हैं; plugin_vet ctx.tools से owner/repo स्कैन करके license · SBOM · commit lock · malicious · risk card → gate warn|deny देता है">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-hero-en-dark.webp">
+  <img src="docs/assets/dsh-security-pack-hero-en-light.webp" width="100%" alt="dsh-security-pack बैनर: बाईं ओर नाम, दो मूल्य-पंक्तियाँ और गेट नोट; दाईं ओर plugin_vet जाँचकर्ता — लक्ष्य (owner/repo, npm पैकेज या लोकल पाथ) नौ स्टैटिक जाँचों से गुजरकर पाँच-आयामी भारित रिस्क कार्ड (PASS / WARN / FAIL) और gate warn|deny नीति पट्टी में बदलता है">
 </picture>
 
 # dsh-security-pack
@@ -35,6 +35,11 @@ dsh plugin --profile <name> add dsh-security-pack
 ## यह क्या है
 
 `dsh-security-pack` आठ सुरक्षा-ऑडिट methodology को `SKILL.md` स्किल में बदलता है और प्री-इंस्टॉल सप्लाई-चेन स्कैनर जोड़ता है। मॉडल स्किल को सेशन कैटलॉग में खोजता है और `skill` टूल से माँग पर लोड करता है; `plugin_vet` वैकल्पिक `provider/` प्लगइन द्वारा `ctx.tools` पर रजिस्टर होता है और GitHub `owner/repo` या लोकल पैकेज पाथ की स्टैटिक जाँच करता है। स्किल बताती हैं *कैसे ऑडिट करें*; टूल *पहली स्कैन* करता है — दोनों एक ही methodology साझा करते हैं, और हर निष्कर्ष संबंधित स्किल सेक्शन की ओर इशारा करता है।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-security-pack-flow-v5-light.svg" width="100%" alt="dsh-security-pack संरचना: प्रोफ़ाइल patch दो चैनल खोलता है — स्किल चैनल (skills/ और skills-en/ rank से खोजे जाते हैं, ctx.skills पर रजिस्टर होते हैं और skill टूल से माँग पर लोड होते हैं; 8 में से 4 स्किल जाँचों द्वारा उद्धृत हैं) और plugin_vet गेट चैनल (target → फ़ाइल सेट → 9 जाँचें); दोनों एक ही रिस्क कार्ड और एक ही इंस्टॉल गेट पर मिलते हैं, और हर निष्कर्ष किसी स्किल सेक्शन को उद्धृत करता है">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -359,7 +364,7 @@ node scripts/check-readme-sync.mjs  # पाँच-भाषा README संर
 
 ### चित्र दोबारा बनाना
 
-README का hero प्रवाह चित्र और मापा-डेटा ग्राफ़ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) से बनते हैं: `python scripts/gen-readme-assets.py` चलाकर `docs/assets/dsh-security-pack-flow-{light,dark}.svg` और `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp` फिर से लिखें।
+README का hero बैनर, संरचना चित्र और मापा-डेटा ग्राफ़ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से प्रोग्रामेटिक रूप से बनते हैं (hero के लिए Pillow, संरचना चित्र के लिए हाथ से लिखा SVG): `python scripts/gen-readme-assets.py` चलाकर `docs/assets/dsh-security-pack-hero-{zh,en}-{light,dark}.webp`, `docs/assets/dsh-security-pack-flow-v5-{light,dark}.svg` और `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp` फिर से लिखें; पुराना एकल-स्किन फ़्लो चित्र बाहरी लिंक के लिए `docs/assets/` में बना रहता है।
 
 ### लेआउट
 
