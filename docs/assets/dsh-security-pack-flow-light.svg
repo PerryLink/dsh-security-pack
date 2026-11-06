@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="470" viewBox="0 0 1200 470" role="img" aria-label="dsh-security-pack workflow">
+<title>dsh-security-pack workflow</title>
+<rect width="1200" height="470" rx="18" fill="#ffffff"/>
+<text x="60" y="58" fill="#1f2328" font-family="ui-sans-serif,system-ui,sans-serif" font-size="30" font-weight="700">dsh-security-pack</text>
+<text x="60" y="90" fill="#57606a" font-family="ui-monospace,monospace" font-size="16">skills · skill tool · plugin_vet · install gate</text>
+<line x1="60" y1="112" x2="1140" y2="112" stroke="#d0d7de"/>
+<text x="60" y="142" fill="#57606a" font-family="ui-monospace,monospace" font-size="13" font-weight="700">skills</text>
+<rect x="60" y="160" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="155" y="196" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">skills/</text>
+<text x="155" y="222" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">skills-en/</text>
+<path d="M256 206h30" stroke="#57606a" stroke-width="3"/>
+<path d="M284 199l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="292" y="160" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="387" y="196" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">SKILL.md</text>
+<text x="387" y="222" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">8 × 2 editions</text>
+<path d="M488 206h30" stroke="#57606a" stroke-width="3"/>
+<path d="M516 199l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="524" y="160" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="619" y="196" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">ctx.skills</text>
+<text x="619" y="222" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">register</text>
+<path d="M720 206h30" stroke="#57606a" stroke-width="3"/>
+<path d="M748 199l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="756" y="160" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#4B67B4" stroke-width="2"/>
+<text x="851" y="196" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">skill tool</text>
+<text x="851" y="222" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">on demand</text>
+<path d="M952 206h30" stroke="#57606a" stroke-width="3"/>
+<path d="M980 199l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="988" y="160" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="1083" y="196" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">model</text>
+<text x="1083" y="222" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">session catalog</text>
+<text x="60" y="304" fill="#57606a" font-family="ui-monospace,monospace" font-size="13" font-weight="700">plugin_vet</text>
+<rect x="60" y="322" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="155" y="358" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">owner/repo</text>
+<text x="155" y="384" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">GitHub · local</text>
+<path d="M256 368h30" stroke="#57606a" stroke-width="3"/>
+<path d="M284 361l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="292" y="322" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="387" y="358" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">tarball</text>
+<text x="387" y="384" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">download once</text>
+<path d="M488 368h30" stroke="#57606a" stroke-width="3"/>
+<path d="M516 361l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="524" y="322" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#4B67B4" stroke-width="2"/>
+<text x="619" y="358" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">plugin_vet</text>
+<text x="619" y="384" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">node: builtins</text>
+<path d="M720 368h30" stroke="#57606a" stroke-width="3"/>
+<path d="M748 361l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="756" y="322" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="851" y="358" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">risk card</text>
+<text x="851" y="384" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">PASS · WARN · FAIL</text>
+<path d="M952 368h30" stroke="#57606a" stroke-width="3"/>
+<path d="M980 361l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="988" y="322" width="190" height="92" rx="14" fill="#f6f8fa" stroke="#16a34a" stroke-width="2"/>
+<text x="1083" y="358" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700">gate</text>
+<text x="1083" y="384" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11">warn | deny</text>
+<text x="60" y="446" fill="#57606a" font-family="ui-monospace,monospace" font-size="13">license · SBOM · commit lock · malicious · data-responsibility · five-dimension risk card</text>
+</svg>

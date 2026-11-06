@@ -1,118 +1,152 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-flow-dark.svg">
+  <img src="docs/assets/dsh-security-pack-flow-light.svg" width="100%" alt="dsh-security-pack 工作流：skills/ 与 skills-en/ 经 ctx.skills 进入 skill 工具；plugin_vet 经 ctx.tools 扫描 owner/repo，输出 license · SBOM · commit lock · malicious · risk card → gate warn|deny">
+</picture>
+
 # dsh-security-pack
 
-> **Renamed from [`@perrylink/dsh-skill-pack-security-provider`](https://www.npmjs.com/package/@perrylink/dsh-skill-pack-security-provider).** The old scoped package is deprecated; install **`dsh-security-pack`**.
+**在插件装进 profile 之前，先把它的供应链底细查清楚。**
 
-- **1024 store channel**: `npm i -g dsh1024` once, then `dsh1024 plugin --profile web add dsh-security-pack` (counts toward the [deepseek1024.com](https://deepseek1024.com) install ranking).
-[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-security-pack)
+面向 DeepSeek Harness 的安全技能包与安装前门禁：八个双语审计技能教方法论，`plugin_vet` 工具自动跑许可证、SBOM、commit 锁定、恶意模式与数据责任检查，最后给出五维风险卡。
+
+[安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
+[![DSH](https://img.shields.io/badge/DSH-%E2%89%A50.1.2%20%3C0.3.0-4B67B4?style=flat-square&labelColor=2B3245)](#兼容性)
+[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-security-pack/verify.yml?branch=main&label=CI&style=flat-square&labelColor=2B3245)](https://github.com/PerryLink/dsh-security-pack/actions/workflows/verify.yml)
+[![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-339933?style=flat-square&labelColor=2B3245)](#兼容性)
+
+[![Stars](https://img.shields.io/github/stars/PerryLink/dsh-security-pack?style=flat-square&labelColor=2B3245)](https://github.com/PerryLink/dsh-security-pack/stargazers)
 [![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-security-pack?metric=downloads)](https://dshfind.com/plugins/PerryLink/dsh-security-pack?ref=badge)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-security-pack/badge)](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-security-pack)
-
-**Eight security-audit skills plus an automated plugin supply-chain gate for DeepSeek Harness.**
-
-*The skills teach the audit methodology; the `plugin_vet` tool executes the pre-install scan — license / SBOM / commit pinning / malicious patterns / five-dimension risk card.*
-
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
-[![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
-[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-security-pack/verify.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-security-pack/actions)
-[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-security-pack?label=version)](https://github.com/PerryLink/dsh-security-pack/releases)
-[![npm version](https://img.shields.io/npm/v/dsh-security-pack)](https://www.npmjs.com/package/dsh-security-pack)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-security-pack)](https://www.npmjs.com/package/dsh-security-pack)
-
-[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-security-pack/badge)](https://securityscorecards.dev/viewer/?uri=github.com/PerryLink/dsh-security-pack)
+[![DSH Market](https://img.shields.io/badge/DSH_Market-listed-4B67B4?style=flat-square&labelColor=2B3245)](https://dsh.market/)
+[![Gitee](https://img.shields.io/badge/Gitee-mirror-C71D23?style=flat-square&labelColor=2B3245&logo=gitee)](https://gitee.com/perrylink/dsh-security-pack)
 
 ```sh
 dsh plugin --profile <name> add dsh-security-pack
 ```
 
-
 </div>
 
----
+<sub>社区插件，与 DeepSeek 官方无关。唯一仓库：<https://github.com/PerryLink/dsh-security-pack>（Gitee 为镜像）。原名 `@perrylink/dsh-skill-pack-security-provider`，旧 scoped 包已弃用。</sub>
 
-## Install & uninstall
+## 它是什么
 
-- **git channel** (latest `main`): `dsh plugin --profile web add github:PerryLink/dsh-security-pack` — mounts the provider bundle; `prepack` embeds both editions into the tarball.
-- **npm channel** (published releases): `dsh plugin --profile web add dsh-security-pack`.
-- **tarball channel**: `pnpm pack` in `provider/`, then `dsh plugin --profile web add ./dsh-security-pack-<version>.tgz`.
-- **uninstall**: `dsh plugin --profile web remove dsh-security-pack` (or remove the row; pure-skill copies are removed with the installer's `-Uninstall` / `--uninstall`).
+`dsh-security-pack` 把 8 套安全审计方法论做成 `SKILL.md` 技能，并附带一个安装前供应链扫描器。模型在会话目录里发现技能，用 `skill` 工具按需加载；`plugin_vet` 由可选的 `provider/` 插件注册到 `ctx.tools`，对 GitHub `owner/repo` 或本地包路径做一次静态体检。技能负责「怎么审」，工具负责「先扫一遍」——两者共用同一套方法论，每条发现都会指回对应技能章节。
 
-## What is dsh-security-pack?
+## 三步上手
 
-Eight security-audit skills plus an automated plugin supply-chain gate for DeepSeek Harness.
+1. **安装**（三选一）：
 
-The skills teach the audit methodology; the `plugin_vet` tool executes the pre-install scan — license / SBOM / commit pinning / malicious patterns / five-dimension risk card.
+   ```sh
+   # git 通道（最新 main）
+   dsh plugin --profile web add github:PerryLink/dsh-security-pack
+   # npm 通道（发布版本）
+   dsh plugin --profile web add dsh-security-pack
+   # tarball 通道：在 provider/ 里 pnpm pack 后
+   dsh plugin --profile web add ./dsh-security-pack-<version>.tgz
+   ```
 
-![Terminal demo of dsh-security-pack: dsh-security-pack — install the provider, verify all 25 checks](https://raw.githubusercontent.com/PerryLink/dsh-security-pack/main/docs/assets/dsh-security-pack-hero.png)
+   `prepack` 会把中英两个技能版嵌入 tarball。
 
+2. **最小配置**（默认即可用）：
 
+   ```yaml
+   - insert:
+       - id: skill-pack-security
+         name: 'dsh-security-pack'
+         config:
+           language: zh
+   ```
 
-## Comparison
+   默认发布中文版；把 `language` 设为 `en` 切换到英文版。
 
-![Measured comparison chart for dsh-security-pack](https://raw.githubusercontent.com/PerryLink/dsh-security-pack/main/docs/assets/dsh-security-pack-evidence.png)
+3. **验证已生效**：
 
-38 poison samples (20 malicious, 18 benign) · benchmark/RESULTS.md
+   ```sh
+   dsh --profile web --dump-config | grep -A3 'id: skill-pack-security'
+   ```
 
-## Compatibility
+**卸载**：`dsh plugin --profile web remove dsh-security-pack`（或从 profile patch 删掉该行；纯技能副本用安装器的 `-Uninstall` / `--uninstall` 删除）。
 
-| Surface | Status |
-|---|---|
-| Harness | DeepSeek Harness **`dsh-v0.2.1-alpha.1`** (GitHub tag, verified 2026-09-25: full gate chain + profile install smoke). npm dependency line: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0`). The session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged. |
-| Node | `^22.19.0 \|\| >=24.0.0` (the DeepSeek Harness runtime) |
-| Platforms | All (the skills are content; the provider is a host plugin) |
-| Model | Any (skills load on demand via the `skill` tool; `plugin_vet` is deterministic) |
+<details>
+<summary>从 DSH Desktop 市场安装</summary>
 
-## What you get
+所有 PerryLink 插件均可在 DSH Desktop 内置市场中浏览：**市场 → 来源 → 添加来源 → 粘贴** `https://perrylink-dsh-catalog.perrylink.workers.dev/catalog-source.json` **→ 选中**。安装仍需通过市场的 npm 身份校验与你的确认。
 
-`dsh-security-pack` is a **skill pack + supply-chain gate** for DeepSeek Harness. It ships eight security methodologies as `SKILL.md` bundles that the model discovers in its session catalog and loads on demand with the `skill` tool, plus the automated `plugin_vet` pre-install scanner. **The skills teach the methodology; the plugin executes the static checks.**
+</details>
 
-- **Eight skills, two editions** — every skill ships with identical names and metadata in `skills/` (Chinese) and `skills-en/` (English); install one language per root.
-- **`plugin_vet` gate** — a zero-dependency scanner (license / SBOM / commit pinning / malicious patterns / data-responsibility review / five-dimension risk card) registered by the optional `provider/` plugin on `ctx.tools`.
-- **Findings cite the skills** — every finding points to the matching skill section (for example `supply-chain-review §1`) so the agent can continue the manual audit.
-- **Executable by a model** — each skill step is a real command (`gitleaks`, `trivy`, `pnpm audit`, `npm view`, `git …`) with an expected-output sample and an exit-code criterion.
+### 手工安装技能
 
-## Why skills, not tools?
+DSH 的本地技能提供方按 rank 扫描四个根目录（同层内重名时低 rank 胜出）：
 
-| Shape | What it does | What it cannot do |
+| Rank | 根目录 | 适用范围 |
 |---|---|---|
-| Tool plugin (e.g. security scanners) | *Executes* scans, returns findings | Interpret alerts, tier false positives, write redacted reports |
-| Protocol layer | *Constrains* a protocol | Generalize across repos and agents |
-| **Skill pack (this repo)** | *Teaches methodology*: triage, reporting, remediation order — **and** automates the static pre-install checks via `plugin_vet` | Replace a manual audit end to end |
+| 100 | `<项目根>/.dsh/skills` | 项目级、随仓库走 |
+| 200 | `<项目根>/.agents/skills` | 项目级、跨 agent 共享目录 |
+| 400 | `<dshHome>/skills`（`$DSH_HOME` 或 `~/.dsh`） | 用户级、DSH 专用 |
+| 500 | `<agentsHome>/skills`（`$DSH_AGENTS_HOME` 或 `~/.agents`） | 用户级、跨 agent 共享 |
 
-Installed together with a tool-type security plugin, the two compose: the tool runs the scan, the skill drives interpretation, triage, and the report. This pack combines both shapes: the skills teach the methodology, and `plugin_vet` runs the mechanical static subset automatically, with every finding pointing back into the skills.
+Rank 链（同层内重名低者胜）：`project-dsh 100 < project-agents 200 < custom 300 < user-dsh 400 < user-agents 500`。custom 300 是插件注册层（如本包可选的 `provider/`），不是磁盘根目录。
 
-The Claude Code ecosystem's 3000+ skills prove the distribution value of this shape. DSH's `SKILL.md` frontmatter (`name`, `description`, `whenToUse`) is format-compatible with CC skills; this pack uses only the common subset and its content is entirely original.
+```powershell
+./scripts/install.ps1 -Target user-agents -Language zh   # Target: project-dsh | project-agents | user-dsh | user-agents；Language: zh（默认）| en
+```
 
-## The eight skills
+```sh
+bash ./scripts/install.sh --target user-agents --language en
+```
 
-| Skill | Purpose | When to use |
+## 核心能力
+
+`dsh-security-pack` 是面向 DeepSeek Harness 的**技能包 + 供应链门禁**：模型按需加载技能，`plugin_vet` 执行机械性的静态子集，每个发现都指回技能继续深挖。
+
+- **八个技能、双语双套** —— 每个技能以相同名称与元数据提供 `skills/`（中文）与 `skills-en/`（英文）两个版本；每个根目录只装一种语言。
+- **`plugin_vet` 门禁** —— 由可选 `provider/` 插件注册到 `ctx.tools` 的零依赖扫描器（许可证 / SBOM / commit 锁定 / 恶意模式 / 数据责任审查 / 五维风险卡片）。
+- **发现引用技能** —— 每个发现指向对应技能章节（如 `supply-chain-review §1`），agent 可继续人工审计。
+- **可被模型执行** —— 每个技能步骤都是真实命令（`gitleaks`、`trivy`、`pnpm audit`、`npm view`、`git …`），附预期输出样例与退出码判据。
+
+### 八个技能
+
+| 技能 | 用途 | 何时用 |
 |---|---|---|
-| `security-audit` | Five-phase audit flow: scope → inventory → risk tiering → verification → report template | Whole-repo audits, audit reports, planning |
-| `secret-scan` | Credential audit: gitleaks/trivy usage, false-positive tiers, redacted reports, remediation order | Secret scanning, alert triage, leak reports |
-| `dependency-audit` | Supply-chain audit: pnpm/npm audit reading, licenses, typosquat risk, lockfile drift | Dependency review, audit-report interpretation |
-| `supply-chain-review` | Quick PR/new-dependency review: dangerous install scripts, typosquat, reproducible builds | Reviewing PRs that add dependencies |
-| `prompt-injection-review` | Injection-surface review for agent projects: AGENTS.md, skills, tool descriptions, MCP, web | Reviewing model-context injection surfaces |
-| `threat-model` | Design-stage threat modeling: trust boundaries, STRIDE table, attack trees, mitigations | Modeling new features, design-stage security review |
-| `vuln-intel` | Vulnerability intelligence: NVD/CISA-KEV/GHSA/OSV lookups with verdict criteria | Given a CVE/GHSA id, checking impact and exploitation |
-| `incident-response` | Agent-environment incident response: contain → evidence → recover → postmortem | Suspected security incidents in DSH/agent setups |
+| `security-audit` | 五阶段审计流程：范围 → 资产清单 → 风险分级 → 验证 → 报告模板 | 整体审计、出报告、规划步骤 |
+| `secret-scan` | 凭据审计：gitleaks/trivy 用法、误报分级、脱敏报告、修复排序 | 密钥扫描、告警定真伪、泄露报告 |
+| `dependency-audit` | 供应链审计：pnpm/npm audit 解读、license、投毒风险、锁文件漂移 | 依赖盘点、audit 报告解读 |
+| `supply-chain-review` | PR/新依赖快速评审：危险 install 脚本、typosquat、可复现构建 | 评审引入新依赖的 PR |
+| `prompt-injection-review` | agent 项目注入面审查：AGENTS.md、技能、工具描述、MCP、网页 | 审查模型上下文注入面 |
+| `threat-model` | 设计期威胁建模：信任边界、STRIDE 表、攻击树、缓解 | 新功能建模、设计阶段安全评审 |
+| `vuln-intel` | 漏洞情报：NVD/CISA-KEV/GHSA/OSV 检索与判定 | 拿到 CVE/GHSA 编号后查影响与利用 |
+| `incident-response` | agent 环境事件响应：控制 → 取证 → 恢复 → 复盘 | DSH/agent 环境出现疑似安全事件 |
 
-Each bundle keeps its main file ≤ 300 lines (progressive disclosure; details live in `references/`).
+每个技能主文件 ≤ 300 行（渐进披露，细节在 `references/`）。
 
-## plugin_vet — the automated pre-install gate
+### 为什么是技能，不是工具？
 
-`plugin_vet` is the pack's automated complement: a zero-dependency scanner registered by the `provider/` plugin on `ctx.tools`. Point it at a GitHub `owner/repo` or a local package path — it downloads the tarball once (timeout + `AbortSignal` respected), scans within budget limits, and returns a render card.
+| 形态 | 做什么 | 做不到什么 |
+|---|---|---|
+| 工具型插件（如扫描器） | **执行**扫描、返回发现 | 解读告警、误报分级、写脱敏报告 |
+| 协议层 | **约束**某个协议 | 跨仓库、跨 agent 泛化 |
+| **技能包（本仓库）** | **传授方法论**：分级、报告、修复排序——**并**通过 `plugin_vet` 自动执行安装前静态检查 | 端到端取代人工审计 |
 
-- **License scan** — finds the LICENSE file and the `license` field; `NOASSERTION`/`UNKNOWN`/`SEE LICENSE IN <file>`, a missing file, or a missing field is flagged; common SPDX ids are recognized.
-- **SBOM** — extracts the dependency tree with versions from the lockfile (pnpm/npm/yarn); when `osv-scanner` or `npm audit` is detected on a local target, their vulnerability output replaces the self-computed dependency scan and the report annotates the source (`builtin` / `osv-scanner` / `npm-audit`).
-- **Commit locking** — install-manifest refs and workflow actions must be immutable 40-hex commit SHAs; `@tag`/branch refs are flagged as mutable.
-- **Malicious patterns** — lifecycle scripts (`preinstall`/`install`/`postinstall`), network-exfiltration domains, and obfuscated/encoded payloads in shipped code.
-- **Data-responsibility review** — the policy-scan dimensions as deterministic rules: ungated listeners on sensitive seams (`agent/pre-step`, `tools/pre-execute`, `session/event`, …), outbound endpoints without README telemetry/privacy disclosure, description-behavior keyword coverage, and embedded instruction-override payloads in shipped text (skills, docs, prompts, tests). Every finding cites `prompt-injection-review` for the manual deep-dive; disable per deployment with `vet.dataResponsibility: false`. A model-assisted review stage is the documented future upgrade.
-- **Five-dimension risk report** — license / source / dependencies / build scripts / maintenance, each 0–100, folded into an overall verdict: PASS, WARN, or FAIL.
+与工具型安全插件同装时两者互补：工具负责跑扫描，技能负责解读、分级与报告。本包两种形态兼有：技能教方法论，`plugin_vet` 自动跑机械性的静态子集，每个发现都指回技能继续深挖。
 
-**Install gate.** The verdict feeds an installation gate — `gate.policy: warn` (default, non-blocking) prints a warning on FAIL; `gate.policy: deny` returns a deny verdict. The tool does not intercept the host's `dsh plugin add`; wire the verdict into your installer/CI to enforce it:
+Claude Code 生态 3000+ 技能已经证明这种形态的分发价值。DSH 的 `SKILL.md` frontmatter（`name`/`description`/`whenToUse`）与 CC 技能格式兼容；本包只用公共子集，内容全部原创。
+
+### plugin_vet：自动安装前门禁
+
+`plugin_vet` 是本包的自动化补充：由 `provider/` 插件注册到 `ctx.tools` 的零依赖扫描器。传入 GitHub `owner/repo` 或本地包路径即可——一次性下载 tarball（遵守超时与 `AbortSignal`）、在预算上限内扫描，并返回渲染卡片。
+
+- **许可证扫描** —— 定位 LICENSE 文件与 `license` 字段；`NOASSERTION`/`UNKNOWN`/`SEE LICENSE IN <file>`、文件缺失或字段缺失都会被标出；常见 SPDX 标识可识别。
+- **SBOM** —— 从锁文件（pnpm/npm/yarn）提取带版本的依赖树；检测到本机有 `osv-scanner` 或 `npm audit` 时，其漏洞输出会取代自计算的依赖扫描，并在报告里标注来源（`builtin` / `osv-scanner` / `npm-audit`）。
+- **commit 锁定** —— 安装清单 ref 与 workflow action 必须是不可变的 40 位 commit SHA；`@tag`/分支 ref 会被标记为可变。
+- **恶意模式** —— 生命周期脚本（`preinstall`/`install`/`postinstall`）、网络回传域名、发布代码中的混淆/编码载荷。
+- **数据责任审查** —— 策略扫描三维的确定性规则版：敏感 seam（`agent/pre-step`、`tools/pre-execute`、`session/event` 等）上的无门控监听、README 未披露出站端点、描述-行为关键词覆盖率、随包文本中的指令覆盖类注入载荷（技能/文档/提示词/测试）。每条发现都指向 `prompt-injection-review` 供人工深审；可用 `vet.dataResponsibility: false` 按部署关闭。模型辅助审查阶段为已文档化的后续升级。
+- **五维风险报告** —— 许可证 / 来源 / 依赖 / 构建脚本 / 维护状态，各 0–100 分，汇总为整体判定：PASS、WARN 或 FAIL。
+
+**安装前门禁。** 判定结果进入安装门禁——`gate.policy: warn`（默认，不阻断）在 FAIL 时打印警告；`gate.policy: deny` 返回拒绝判定；工具本身不拦截宿主的 `dsh plugin add`，需由安装器/CI 执行该判定：
 
 ```yaml
 - id: skill-pack-security
@@ -121,213 +155,292 @@ Each bundle keeps its main file ≤ 300 lines (progressive disclosure; details l
     language: en
     vet:
       gate:
-        policy: deny   # return a deny verdict for failed plugin_vet (caller enforces)
+        policy: deny   # 对 plugin_vet 不过的目标返回拒绝判定（由调用方执行）
 ```
 
-**Complementary to `dsh-plugin-check`.** The official plugin validator's 36 checks verify a plugin's *contract and quality* (config schema, effect registration, tool JSON shape); `plugin_vet` verifies the *supply chain* of where a plugin comes from. Run both:
+**与 `dsh-plugin-check` 互补。** 官方插件校验器的 36 项检测验证插件的*契约与质量*（配置 Schema、effect 注册、工具 JSON 形态）；`plugin_vet` 验证插件的*来源供应链*是否可信。两者都跑：
 
-| | `dsh-plugin-check` (36 checks) | `plugin_vet` (this repo) |
+| | `dsh-plugin-check`（36 项检测） | `plugin_vet`（本仓库） |
 |---|---|---|
-| Question answered | Is this plugin well-formed and contract-compliant? | Is this package safe to install? |
-| Looks at | Plugin code, schema, registrations, tool contracts | LICENSE, lockfile, install refs/actions, lifecycle scripts, exfil/obfuscation, maintenance, data-responsibility (hooks scope, telemetry disclosure, description-behavior, embedded injection payloads) |
-| Verdict | Pass/fail per check | PASS / WARN / FAIL + gate |
-| When | Plugin development or review | Before `dsh plugin add`, PR review, CI supply-chain gate |
-| Blocking | CI gate (non-zero on violations) | Configurable: `warn` (default) or `deny` |
+| 回答的问题 | 这个插件是否结构良好、符合契约？ | 这个包安装是否安全？ |
+| 检查对象 | 插件代码、Schema、注册、工具契约 | LICENSE、锁文件、安装 ref/action、生命周期脚本、回传/混淆、维护状态、数据责任（监听作用域、遥测披露、描述-行为、嵌入式注入载荷） |
+| 判定 | 逐项 pass/fail | PASS / WARN / FAIL + 门禁 |
+| 时机 | 插件开发或评审时 | `dsh plugin add` 前、PR 评审、CI 供应链门禁 |
+| 阻断 | CI 门禁（有违规即非零退出） | 可配置：`warn`（默认）或 `deny` |
 
-## Quick start
+### 工具与表面
 
-```sh
-dsh plugin --profile web add github:PerryLink/dsh-security-pack
-```
-
-```sh
-# 1. install the bundle into your profile
-dsh plugin --profile web add github:PerryLink/dsh-security-pack
-
-# or from npm (published releases)
-dsh plugin --profile web add dsh-security-pack
-
-# 2. restart and verify the row
-dsh --profile web --dump-config | grep -A3 'id: skill-pack-security'
-```
-
-## Installing the skills by hand
-
-DSH's local skill provider scans four roots by rank (lower rank wins same-name conflicts within a layer):
-
-| Rank | Root | Scope |
+| 表面 | 类型 | 说明 |
 |---|---|---|
-| 100 | `<projectRoot>/.dsh/skills` | Project-scoped, travels with the repo |
-| 200 | `<projectRoot>/.agents/skills` | Project-scoped, shared agent directory |
-| 400 | `<dshHome>/skills` (`$DSH_HOME` or `~/.dsh`) | User-scoped, DSH-only |
-| 500 | `<agentsHome>/skills` (`$DSH_AGENTS_HOME` or `~/.agents`) | User-scoped, cross-agent |
+| `plugin_vet` | tool | 安装前供应链扫描（许可证 / SBOM / commit 锁定 / 恶意 / 风险卡片）；发现引用技能章节 |
+| `skill-pack-security` | skill provider | 把本包的 `skills/` 或 `skills-en/` 版本注册到 `ctx.skills` |
+| 八个 `SKILL.md` 技能 | skills | 审计方法论，两个语言版 |
+| 安装门禁 | gate | `vet.gate.policy: warn \| deny` 返回判定；由安装器/CI 放行 |
 
-Ranks (lower wins same-name conflicts within a layer): `project-dsh 100 < project-agents 200 < custom 300 < user-dsh 400 < user-agents 500`. Custom rank 300 is plugin-registered (such as this pack's optional `provider/`), not a disk root.
+### 示例
 
-```powershell
-./scripts/install.ps1 -Target user-agents -Language zh   # Target: project-dsh | project-agents | user-dsh | user-agents; Language: zh (default) | en
+以下使用插件真实命令面；安装后调用一个入口即可。
+
+- **详细示例** —— `plugin_vet`（tool）：对目标 `owner/repo` 执行安装前扫描，返回五维风险卡片。
+- **简短示例** —— `skill-pack-security`（skill provider）：在会话目录中加载 `security-audit` 等技能。
+
+## 实测数据
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-security-pack-evidence-zh-dark.webp">
+  <img src="docs/assets/dsh-security-pack-evidence-zh-light.webp" width="100%" alt="dsh-security-pack 投毒样本基准分类型 F1：install-scripts 1.000、network-exfil 0.800、obfuscation 0.909">
+</picture>
+
+38 个投毒样本（20 恶意 / 18 良性）的静态检测回归结果，数据逐字出自 [`benchmark/RESULTS.md`](benchmark/RESULTS.md)，可用 `pnpm --dir provider run build && node benchmark/run.mjs` 复现（零新依赖）。
+
+| 类别 | 召回率 | FPR | 精确率 | F1 |
+|---|---|---|---|---|
+| install-scripts | 1.000 | 0.000 | 1.000 | 1.000 |
+| network-exfil | 0.667 | 0.000 | 1.000 | 0.800 |
+| obfuscation | 0.833 | 0.000 | 1.000 | 0.909 |
+
+整体：Macro F1 **0.903**（P 1.000 / R 0.833）；Micro F1 **0.919**（P 1.000 / R 0.850）；整体误报率 **0.000**。检测口径是该检查的 `verdict = fail`（`deny` 门禁下会阻断安装的状态），`warn` 不计为检出。
+
+**与 OSV / Socket 的差距（照实说）。** 该基准只测自建的静态启发式：它没有漏洞数据库，因此固定依赖里的已知 CVE 对 `install-scripts`/`network-exfil`/`obfuscation` 不可见——那属于 `sbom` 检查，本机有 `osv-scanner`/`npm audit` 时由其代跑；OSV 用公告库匹配锁文件版本，Socket 还叠加维护者/攻击者遥测。反向看，启发式对改名或轻度重编码的载荷会漏，这里的 FPR 也只是精选良性集上的模式级误报率，不是全生态 FPR。
+
+**基准的边界。** 只识别形态、不判断意图；单文件视角（真实引擎会走整个包）；Telegram/Discord webhook 域名因比对裸 host 而永不命中；base64 混淆必须是内联字面量。完整说明见 [`benchmark/RESULTS.md`](benchmark/RESULTS.md)。
+
+## 配置
+
+所有可调项都是 Schemastery `Config` 字段（可从 cordis.yml 覆盖）。`provider/cordis.patch.yml` 逐键内联注释。
+
+最常用键：
+
+| 键 | 默认值 | 含义 |
+|---|---|---|
+| `language` | `zh` | 发布的语言版：中文 `skills/` 或英文 `skills-en/`；设置 `skillsDir` 后忽略 |
+| `skillsDir` | *(未设置)* | 显式技能根目录；覆盖 `language` 推导的默认值，须含 `<skill>/SKILL.md` 技能 |
+| `vet.enable` | `true` | 注册 `plugin_vet` 门禁工具 |
+| `vet.dataResponsibility` | `true` | 运行数据责任审查（可按部署禁用） |
+| `vet.externalScanners` | `true` | 当 `osv-scanner`/`npm audit` CLI 存在时编排它们；`false` 强制使用内置自计算依赖扫描 |
+| `vet.gate.policy` | `warn` | 安装门禁：`warn`（不阻断）或 `deny`（FAIL 时阻断） |
+| `vet.timeoutMs` | `15000` | tarball 下载超时（毫秒） |
+
+<details>
+<summary>完整配置表（14 个键）</summary>
+
+| 键 | 默认值 | 含义 |
+|---|---|---|
+| `language` | `zh` | 发布的语言版：中文 `skills/` 或英文 `skills-en/`；设置 `skillsDir` 后忽略 |
+| `watch` | `false` | 是否监听打包技能目录（内容静态，故默认关闭） |
+| `skillsDir` | *(未设置)* | 显式技能根目录；覆盖 `language` 推导的默认值，须含 `<skill>/SKILL.md` 技能 |
+| `vet.enable` | `true` | 注册 `plugin_vet` 门禁工具 |
+| `vet.timeoutMs` | `15000` | tarball 下载超时（毫秒） |
+| `vet.maxFiles` | `800` | 扫描文件数上限 |
+| `vet.maxFileBytes` | `262144` | 单文件字节上限 |
+| `vet.maxExtractBytes` | `67108864` | 解压字节上限 |
+| `vet.maxDepNodes` | `600` | 依赖树节点上限 |
+| `vet.maxFindingsPerCheck` | `12` | 每项检查的发现数上限 |
+| `vet.dataResponsibility` | `true` | 运行数据责任审查（可按部署禁用） |
+| `vet.externalScanners` | `true` | 当 `osv-scanner`/`npm audit` CLI 存在时编排它们；`false` 强制使用内置自计算依赖扫描 |
+| `vet.userAgent` | `dsh-security-pack/3.0.1 (+https://github.com/PerryLink/dsh-security-pack)` | 下载用的 user-agent |
+| `vet.gate.policy` | `warn` | 安装门禁：`warn`（不阻断）或 `deny`（FAIL 时阻断） |
+
+</details>
+
+profile patch 覆盖示例：
+
+```yaml
+- insert:
+    - id: skill-pack-security
+      name: 'dsh-security-pack'
+      config:
+        language: en
+        vet:
+          dataResponsibility: true
+          gate:
+            policy: deny
 ```
 
-```sh
-bash ./scripts/install.sh --target user-agents --language en
-```
+## FAQ
 
-## What's inside
+<details>
+<summary>`plugin_vet` 会拦截 `dsh plugin add` 吗？</summary>
 
-| Path | What it is |
+不会。工具只返回判定，不劫持宿主的安装命令：`vet.gate.policy: warn`（默认）在 FAIL 时打印警告、不阻断；`deny` 返回拒绝判定，真正的阻断要由你的安装器或 CI 读取判定后执行。
+
+</details>
+
+<details>
+<summary>扫描会把我的代码或报告传到哪？</summary>
+
+扫描在本机完成，唯一的网络行为是下载待扫描的 tarball（以及在你本机已装 `osv-scanner`/`npm audit` 时调用它们）；报告不回传，也不注入任何 prompt 段。`dshWorkshop` manifest 只声明 `files:read` 与 `network:fetch`，报告会打码密钥形态文本。
+
+</details>
+
+<details>
+<summary>会和 `dsh-plugin-check` 或工具型安全插件冲突吗？</summary>
+
+不冲突，定位互补：`dsh-plugin-check` 验证插件是否结构良好、符合契约（36 项），`plugin_vet` 验证这个包的来源供应链是否可信；与扫描器类插件同装时，工具跑扫描、技能做解读与分级。八个技能名与官方 `.agents/skills/` 及已知社区技能包零交集，机器校验见 `verify/verify-skill-pack.mts` 第 2 项。
+
+</details>
+
+<details>
+<summary>扫描开销多大？</summary>
+
+`plugin_vet` 是零依赖的确定性静态检查，无模型调用；开销由预算上限兜住：下载超时 `vet.timeoutMs`（默认 15 秒）、`maxFiles` 800、单文件 256 KiB、解压 64 MiB、依赖树 600 节点。若启用外部扫描器，额外时间由 `osv-scanner`/`npm audit` 决定。
+
+</details>
+
+<details>
+<summary>能同时装中英两个语言版吗？</summary>
+
+不能在同一根目录里同时生效。DSH 按 rank 扫描技能根目录，同名技能在同一层内低 rank 胜出，只有一个语言版进入会话目录；要换语言，改 `language` 或把另一个语言版装到不同的根目录。
+
+</details>
+
+## 安全边界
+
+- **零依赖引擎。** `plugin_vet` 只用 `node:` 内置与相对导入。
+- **窄范围安装前门禁。** 不是通用安全审计工具——刻意与扫描器插件、官方 `dsh-plugin-check` 契约校验器互补。
+- **默认不阻断。** 安装门禁默认为 `warn`，除非显式选择 `deny`。
+- **内容原创。** 与 Claude Code 技能格式兼容，但不复制 CC 技能内容、不设技能市场。
+- **引擎原创、未移植第三方资产。** 许可证扫描与恶意模式检查为原创零依赖实现；GPL-Radar / LLM-detective / Sus-PY 资产经评估未移植（未找到可核实许可证的公开源码）——见 `THIRD_PARTY_NOTICES.md`。
+
+## 权限与数据
+
+- **权限**：`dshWorkshop` manifest 声明 `files:read` 与 `network:fetch`。
+- **数据**：`plugin_vet` 一次性下载 tarball（遵守超时与 `AbortSignal`），报告会打码密钥形态文本；插件不注入任何 prompt 段。
+
+## 已知限制
+
+- **不是完整审计工具。** `plugin_vet` 是窄范围的安装前信任门禁，不能端到端取代人工审计。
+- **仅静态扫描。** 恶意模式与维护状态信号是对发布包的启发式判断，不是动态分析。
+- **每根目录一个语言版。** 同名技能在同一根目录内按 rank 去重，只有一个语言版进入会话目录。
+
+## 与其他 DSH 插件的互操作性
+
+本包按「内容 + 可选工具」的形态接入，不占用其他插件的技能名或安装路径：
+
+- **技能名零冲突。** 八个技能名与官方 `.agents/skills/`（2026-08 快照 12 个）及已知社区技能包（`dsh-write-plugin`、`dsh-test-plugin`、`dsh-plugin-dev` 等）零交集；`verify/verify-skill-pack.mts` 第 2 项每次运行都会从 checkout 重新推导官方技能名并断言。
+- **与工具型安全插件互补。** 扫描器插件执行扫描并返回发现，本包负责解读、分级与报告模板；同装时各司其职。
+- **与官方校验器互补。** `dsh-plugin-check` 查契约与质量，`plugin_vet` 查来源供应链；对照表见上文。
+- **同层重名按 rank 解析。** 技能根目录 rank 链为 `project-dsh 100 < project-agents 200 < custom 300 < user-dsh 400 < user-agents 500`，同一根目录内只保留一个语言版。
+
+排查过程与查询快照见 [`docs/ecosystem-conflict-check.md`](docs/ecosystem-conflict-check.md)。
+
+## 兼容性
+
+| 维度 | 状态 |
 |---|---|
-| `skills/<name>/SKILL.md` | The eight skills (Chinese edition); frontmatter follows the official `dsh-skill-filesystem` contract |
-| `skills-en/<name>/SKILL.md` | The eight skills (English edition); same names and metadata as the Chinese edition |
-| `skills/<name>/references/` | Progressive-disclosure detail: command matrices, triage tables, templates |
-| `scripts/install.ps1` | One-command Windows installer for all four roots (both language editions); records a manifest, supports `-Uninstall`/`-DryRun`/`-Force` |
-| `scripts/install.sh` | The POSIX equivalent (`--uninstall`/`--dry-run`/`--force`) |
-| `provider/` | npm-installable provider bundle (declares `dsh.bundle`; embeds both editions in `pack/` via `prepack`; `language: zh\|en`); registers the skills provider AND the `plugin_vet` gate tool via `ctx.effect()`, fails loud on a bad `skillsDir` |
-| `provider/src/vet/` | The zero-dependency `plugin_vet` scan engine (license / SBOM / commit lock / malicious patterns / risk report) |
-| `package.json` | Root bundle manifest: declares `dsh.bundle.patch` (→ `provider/cordis.patch.yml`) and `dshWorkshop` intake facts |
-| `verify/verify-skill-pack.mts` | Headless verification against the official parser, the real `skill` tool, and the real tools runtime — 25 checks across both editions |
-| `VERSION` | Single version source; every SKILL.md `metadata.version` and `provider/package.json` must match it (CI-enforced) |
-| `docs/` | Ecosystem conflict check, release checklist, improvement plans, and `plugin_vet` demos |
-| `CHANGELOG.md` / `SECURITY.md` / `CONTRIBUTING.md` | Release history, vulnerability reporting policy, and contribution/verification rules |
-| `.github/workflows/verify.yml` | CI: 25-check verification + installer exercise + provider build/pack smoke (Ubuntu and Windows) |
-| `.github/dependabot.yml` | Weekly dependency updates for the provider and GitHub Actions |
+| Harness | DeepSeek Harness **`dsh-v0.2.1-alpha.1`**（GitHub tag，2026-09-25 核验：完整门禁链 + profile 安装冒烟）。npm 依赖线：`@deepseek-ai/dsh` **0.1.5-rc.2**（peers `>=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0`）。会话信封保留 ignorable 字段但仅用于存量日志读取兼容——Session.append 仍无法盖章，门控行为不变。 |
+| Node | `^22.19.0 \|\| >=24.0.0`（DeepSeek Harness 运行时） |
+| 平台 | 任意（技能是内容；provider 是 host 插件） |
+| 模型 | 任意（技能经 `skill` 工具按需加载；`plugin_vet` 是确定性的） |
+
+## 生态与质量
+
+- [Gitee 镜像](https://gitee.com/perrylink/dsh-security-pack)（同步镜像，以 GitHub 为准）
+- [dshfind 插件页](https://dshfind.com/plugins/PerryLink/dsh-security-pack)（安装量与排名）
+- [OpenSSF Scorecard 报告](https://securityscorecards.dev/viewer/?uri=github.com/PerryLink/dsh-security-pack)（由 [.github/workflows/scorecard.yml](.github/workflows/scorecard.yml) 驱动）
+- [dsh-plugin-doctor 静态 R/K 门禁](https://github.com/PerryLink/dsh-security-pack/blob/main/.github/workflows/plugin-doctor.yml)（每次 push 在 CI 上运行）
+- [DSH Market](https://dsh.market/)（已上架）
+- **1024 商店渠道**：先 `npm i -g dsh1024`，再 `dsh1024 plugin --profile web add dsh-security-pack`（计入 [deepseek1024.com](https://deepseek1024.com) 安装排行）
+- [生态实测知识库](https://perrylink.github.io/dsh-plugin-guide/)：插件开发指南 · 选型实测数据 · 维护取舍判据
+
+## 开发
+
+```sh
+pnpm --dir provider run typecheck   # tsc --noEmit
+pnpm --dir provider run build       # tsc --noEmitOnError
+pnpm --dir provider run prepack     # 把两个语言版嵌入 tarball
+tsx verify/verify-skill-pack.mts    # 25 项 headless 校验
+node scripts/check-readme-sync.mjs  # 五语 README 结构与配置键一致性
+```
+
+### 基准复现
+
+投毒样本回归集（38 个样本的逐类检出率 / 误报率 / F1，以及与 OSV/Socket 的差距）见 [`benchmark/RESULTS.md`](benchmark/RESULTS.md)；用 `pnpm --dir provider run build && node benchmark/run.mjs` 复现（零新依赖）。
+
+### 配图复跑
+
+README 的 hero 流程图与实测图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow）：运行 `python scripts/gen-readme-assets.py` 即可重出 `docs/assets/dsh-security-pack-flow-{light,dark}.svg` 与 `docs/assets/dsh-security-pack-evidence-{zh,en}-{light,dark}.webp`。
+
+### 目录布局
+
+| 路径 | 内容 |
+|---|---|
+| `skills/<name>/SKILL.md` | 8 个技能（中文版）；frontmatter 逐条符合官方 `dsh-skill-filesystem` 契约 |
+| `skills-en/<name>/SKILL.md` | 8 个技能（英文版）；名称与元数据与中文版一致 |
+| `skills/<name>/references/` | 渐进披露细节：命令矩阵、分级表、模板 |
+| `scripts/install.ps1` | Windows 一键安装（四种根目录、两种语言版）；记录清单，支持 `-Uninstall`/`-DryRun`/`-Force` |
+| `scripts/install.sh` | POSIX 等价安装器（`--uninstall`/`--dry-run`/`--force`） |
+| `provider/` | npm 可安装的 provider bundle（声明 `dsh.bundle`；`prepack` 把双语言版嵌入 `pack/`；`language: zh\|en`）；经 `ctx.effect()` 注册技能提供方**与** `plugin_vet` 门禁工具，`skillsDir` 配错响亮失败 |
+| `provider/src/vet/` | 零依赖 `plugin_vet` 扫描引擎（许可证 / SBOM / commit 锁定 / 恶意模式 / 风险报告） |
+| `package.json` | 根 bundle manifest：声明 `dsh.bundle.patch`（→ `provider/cordis.patch.yml`）与 `dshWorkshop` intake 事实 |
+| `verify/verify-skill-pack.mts` | 官方解析器 + 真实 `skill` 工具 + 真实工具运行时 headless 校验——双语共 25 项检查 |
+| `VERSION` | 版本单一来源；每个 SKILL.md 的 `metadata.version` 与 `provider/package.json` 必须与其一致（CI 强制） |
+| `docs/` | 生态冲突检查、发布清单、改进计划与 `plugin_vet` 演示 |
+| `CHANGELOG.md` / `SECURITY.md` / `CONTRIBUTING.md` | 发布历史、漏洞报告政策、贡献与校验规则 |
+| `.github/workflows/verify.yml` | CI：25 项校验 + 安装器演练 + provider 独立构建/打包冒烟（Ubuntu 与 Windows） |
+| `.github/dependabot.yml` | provider 与 GitHub Actions 的每周依赖更新 |
 | `LICENSE` | Apache License 2.0 |
-| `THIRD_PARTY_NOTICES.md` | Third-party posture: zero-dependency engine, evaluated-but-not-ported assets, peer dependency licenses |
+| `THIRD_PARTY_NOTICES.md` | 第三方立场：零依赖引擎、已评估未移植的资产、peer 依赖许可 |
 
-### Examples
+### 验证（25 项检查）
 
-These use the plugin's real command surface; install once, then call one of the entry points.
+`verify/verify-skill-pack.mts` 从本机 `deepseek-harness` checkout 导入**官方** `dsh-skill-filesystem` 解析器、**真实** `skill` 工具与**真实**工具运行时，对两个语言版实测 25 项检查：
 
-#### Detailed example
-
-- `plugin_vet` — tool
-
-#### Brief examples
-
-- `skill-pack-security` — skill provider
-
-## Configuration
-
-All tunables are Schemastery `Config` fields (changeable from cordis.yml). `provider/cordis.patch.yml` documents each key inline.
-
-| Key | Default | Meaning |
-|---|---|---|
-| `language` | `zh` | Edition to publish: the Chinese `skills/` or the English `skills-en/`; ignored when `skillsDir` is set |
-| `watch` | `false` | Watch the packaged skills directory (static content, so disabled) |
-| `skillsDir` | *(unset)* | Explicit skills root; overrides the `language`-derived default and must hold `<skill>/SKILL.md` bundles |
-| `vet.enable` | `true` | Register the `plugin_vet` gate tool |
-| `vet.timeoutMs` | `15000` | Tarball-fetch timeout in ms |
-| `vet.maxFiles` | `800` | Scan file cap |
-| `vet.maxFileBytes` | `262144` | Per-file byte cap |
-| `vet.maxExtractBytes` | `67108864` | Extraction byte cap |
-| `vet.maxDepNodes` | `600` | Dependency-tree node cap |
-| `vet.maxFindingsPerCheck` | `12` | Findings cap per check |
-| `vet.dataResponsibility` | `true` | Run the data-responsibility review (disable per deployment) |
-| `vet.externalScanners` | `true` | Orchestrate `osv-scanner`/`npm audit` when their CLIs are present; `false` forces the built-in self-computed dependency scan |
-| `vet.userAgent` | `dsh-security-pack/3.0.1 (+https://github.com/PerryLink/dsh-security-pack)` | Fetch user-agent |
-| `vet.gate.policy` | `warn` | Install gate: `warn` (non-blocking) or `deny` (block on FAIL) |
-
-## Tools & surfaces
-
-| Surface | Kind | Notes |
-|---|---|---|
-| `plugin_vet` | tool | Pre-install supply-chain scan (license / SBOM / commit lock / malicious / risk card); findings cite skill sections |
-| `skill-pack-security` | skill provider | Registers the pack's `skills/` or `skills-en/` edition on `ctx.skills` |
-| Eight `SKILL.md` bundles | skills | The audit methodology, in two language editions |
-| install gate | gate | `vet.gate.policy: warn \| deny` returns a verdict; the caller (installer/CI) enforces it |
-
-## Permissions & data
-
-- **Permissions**: the `dshWorkshop` manifest declares `files:read` and `network:fetch`.
-- **Data**: `plugin_vet` downloads a tarball once (timeout + `AbortSignal` respected) and reports redact secret-shaped text; the plugin injects no prompt sections.
-
-## Security boundaries
-
-- **Zero-dependency engine.** `plugin_vet` uses only `node:` builtins and relative imports.
-- **Narrow pre-install gate.** Not a general-purpose security-audit tool — deliberately complementary to scanner plugins and the official `dsh-plugin-check` contract validator.
-- **Non-blocking by default.** The install gate is `warn` unless you opt into `deny`.
-- **Original content.** Format-compatible with Claude Code skills, but no copied CC skill content and no skill marketplace.
-- **Original engine, no third-party ports.** The license scan and malicious-pattern checks are original zero-dependency implementations; the GPL-Radar / LLM-detective / Sus-PY assets were evaluated for porting but no licensed public source was found — see `THIRD_PARTY_NOTICES.md`.
-
-## Verification
-
-`verify/verify-skill-pack.mts` imports the **official** `dsh-skill-filesystem` parser, the **real** `skill` tool, and the **real** tools runtime from a local `deepseek-harness` checkout and asserts 25 checks over both language editions:
-
-1. Layout: both editions present, 8 directory bundles each, no stray flat skills, frontmatter `name` matches directory, ≤ 300 lines, `references/` wired, `metadata.version` synced to the `VERSION` file
-2. No name conflicts with the official `.agents/skills/` skills (derived from the checkout at run time) or known community skill packs
-3–6. Per edition (Chinese `skills/`, English `skills-en/`): registry discovery through the official provider, full `ctx.skills.get()` loads, the real `skill` tool returning `<skill_content>` (unknown/invalid names rejected), and the session catalog containing `name` + `description` only — `whenToUse` stays out of the model catalog (official design)
-7. 13 bad-frontmatter fixtures exercise the official fail-closed rules (missing fields, legacy camel-case keys, non-boolean values, non-kebab names, nested dirs, name mismatch); flat-file skills load and nested `**/SKILL.md` is not discovered
-8. The optional provider plugin mounts the Chinese and the English edition via `ctx.effect()`, disposes cleanly, and rejects misconfiguration (empty or nonexistent `skillsDir`)
-9–15. Self-hardening checks: zh↔en structural parity, references wiring (no dangling/orphan files), provider version sync, documented skill-root ranks vs the official constants, POSIX-portable `grep -E` patterns, secret self-check, UTF-8-safe release checklist
-16–19. `plugin_vet` through the real tools runtime: it registers on `ctx.tools`; the compliant fixture passes; the no-license fixture fails and cites `dependency-audit §3`; the malicious postinstall fixture fails (scripts/exfil/obfuscation, citing `supply-chain-review §1`); the gate returns a deny verdict under `policy: deny` (the caller enforces it)
-20. The scan engine is zero-dependency (`node:` builtins and relative imports only)
-21. Report redaction keeps secret-shaped text out of rendered output
+1. 目录结构：两个语言版齐备、各 8 个 bundle、无多余平铺 md、frontmatter `name` 与目录名一致、≤ 300 行、`references/` 已接线、`metadata.version` 与 `VERSION` 文件同步
+2. 与官方 `.agents/skills/` 技能（运行时从 checkout 推导）及已知社区技能包零重名
+3–6. 每个语言版（中文 `skills/`、英文 `skills-en/`）：官方 provider 发现全部 8 个技能、`ctx.skills.get()` 加载全部正文、真实 `skill` 工具返回 `<skill_content>`（未知名/非法名被拒绝）、会话目录只含 `name`+`description`——`whenToUse` 不进入模型目录（官方设计）
+7. 13 个坏 frontmatter 用例逐条验证官方 fail-closed 规则（缺字段、驼峰遗留键、非布尔值、非 kebab 名、嵌套目录、名称不一致）；平铺技能可发现，嵌套 `**/SKILL.md` 不被发现
+8. 可选 provider 插件经 `ctx.effect()` 挂载中文版与英文版、dispose 干净，并拒绝错误配置（空/不存在的 `skillsDir`）
+9–15. 自加固检查：zh↔en 结构对齐、references 接线（无悬空/孤儿文件）、provider 版本同步、文档 rank 对照官方常量、`grep -E` 模式 POSIX 可移植、包内密钥自检、release-checklist UTF-8 安全
+16–19. `plugin_vet` 走真实工具运行时：注册到 `ctx.tools`；合规 fixture 通过；无 license fixture 失败并引用 `dependency-audit §3`；恶意 postinstall fixture 失败（脚本/回传/混淆，引用 `supply-chain-review §1`）；`policy: deny` 下门禁阻断安装
+20. 扫描引擎零依赖（仅 `node:` 内置与相对导入）
+21. 报告脱敏：密钥形态文本不进入渲染输出
 
 ```powershell
-# local: auto-resolves the harness checkout beside the pack, or point it explicitly
+# 本地运行：默认自动解析包旁的 harness checkout，也可显式指定
 $env:DSH_HARNESS_CHECKOUT = 'D:\deepseek-harness'
 & D:\deepseek-harness\node_modules\.bin\tsx.CMD verify\verify-skill-pack.mts
 # All 25 checks passed for dsh-security-pack.
 ```
 
-The same 25 checks run on GitHub on every push via `.github/workflows/verify.yml` — on Ubuntu and Windows — plus an `install.sh`/`install.ps1` exercise and a standalone provider build/pack smoke that asserts the tarball carries both embedded editions and the bundle patch.
+同样的 25 项检查由 `.github/workflows/verify.yml` 在 GitHub 上每次 push 自动重跑——Ubuntu 与 Windows 双平台——另有 `install.sh`/`install.ps1` 演练与 provider 独立构建/打包冒烟（断言 tarball 含双语言版与 bundle patch）。
 
-## Known limitations
+### 路线图
 
-- **Not a full audit tool.** `plugin_vet` is a narrow pre-install trust gate; it cannot replace a manual, end-to-end audit.
-- **Static scan only.** The malicious-pattern and maintenance signals are heuristics over the shipped package, not dynamic analysis.
-- **One edition per root.** Same-name skills in one root resolve by rank, so only one language edition enters a session catalog.
+- `dsh-skill-pack-data-engineering` —— 数据管道、数据质量、ETL 检查清单（同模板）
+- `dsh-skill-pack-oss-collab` —— PR 礼仪、issue 分类、维护者工作流
+- `dsh-skill-pack-performance` —— profile 方法论、基准判定、回归清单
+- 本包内更多技能（保持纯技能边界）：`sbom-lifecycle`（SBOM 生成/老化/导入工作流）、`pen-test-review`（授权测试的范围界定与报告评审）、`compliance-audit`（ASVS/NIST-CSF 走查）
+- 随每次发布刷新 `plugin_vet` 演示产物（`docs/demos/run-demos.mjs`），并随官方校验器新增检测保持 `dsh-plugin-check` 互补表准确
 
-## Roadmap
-
-- `dsh-skill-pack-data-engineering` — data pipelines, data quality, ETL checklists (same template)
-- `dsh-skill-pack-oss-collab` — PR etiquette, issue triage, maintainer workflows
-- `dsh-skill-pack-performance` — profiling methodology, benchmark criteria, regression checklists
-- More skills inside this pack (same pure-skill boundary): `sbom-lifecycle` (SBOM generation/aging/import workflows), `pen-test-review` (authorized-engagement scoping and report review), `compliance-audit` (ASVS/NIST-CSF walkthroughs)
-- Keep the `plugin_vet` demo artifacts fresh (`docs/demos/run-demos.mjs`) and the `dsh-plugin-check` complement table accurate as the official checker adds checks
-
-## Development
-
-```sh
-pnpm --dir provider run typecheck   # tsc --noEmit
-pnpm --dir provider run build       # tsc --noEmitOnError
-pnpm --dir provider run prepack     # embeds both skill editions into the tarball
-tsx verify/verify-skill-pack.mts    # 25-check headless verification
-```
-
-### Benchmark
-
-The poison-sample regression set (per-class detection rate / FPR / F1 over 38 samples, plus the OSV/Socket gap) is published in [`benchmark/RESULTS.md`](benchmark/RESULTS.md); regenerate it with `pnpm --dir provider run build && node benchmark/run.mjs` (zero new dependencies).
-
-## Topics
+### Topics
 
 `dsh`, `dsh-plugin`, `deepseek-harness`, `skill-pack`, `skills`, `security`, `security-audit`, `supply-chain`, `supply-chain-security`, `prompt-injection`
 
-## Contributors
+## 家族与致谢
 
-- [@PerryLink](https://github.com/PerryLink) — author and maintainer: the eight skills in both language editions, the installers, the verification suite, the provider bundle, CI, and the documentation.
+本项目是 [PerryLink](https://github.com/PerryLink) 维护的 DeepSeek Harness 插件家族成员（全部 Apache-2.0）。如果这个插件帮到了你，**给个 star**——它不解锁任何功能，但会让下一个人更容易找到它。
 
-## PerryLink DSH Plugin Family
-
-This project is part of the DeepSeek Harness plugin family from [PerryLink](https://github.com/PerryLink). The roster stays collapsed below so every README keeps a short first screen; expand it to see every row and its status.
+- [@PerryLink](https://github.com/PerryLink) —— 作者与维护者：双语版八个技能、安装脚本、验证套件、provider 包、CI 与文档。
 
 <details>
-<summary>Expand all plugins</summary>
+<summary>展开全部插件</summary>
 
-| Plugin | Status |
+| 插件 | 状态 |
 |---|---|
 | **[dsh-aqua-input-check](https://github.com/PerryLink/dsh-aqua-input-check)** |  |
 | **[dsh-archive-check](https://github.com/PerryLink/dsh-archive-check)** |  |
 | **[dsh-auto-review](https://github.com/PerryLink/dsh-auto-review)** |  |
-| **[dsh-autotier](https://github.com/PerryLink/dsh-autotier)** | 🧊 FROZEN — see the repo README |
+| **[dsh-autotier](https://github.com/PerryLink/dsh-autotier)** | 🧊 已冻结 — 见仓库 README |
 | **[dsh-bid-ca-precheck](https://github.com/PerryLink/dsh-bid-ca-precheck)** |  |
 | **[dsh-bid-qual-check](https://github.com/PerryLink/dsh-bid-qual-check)** |  |
-| **[dsh-cert-mcp](https://github.com/PerryLink/dsh-cert-mcp)** | 🧊 FROZEN — see the repo README |
+| **[dsh-cert-mcp](https://github.com/PerryLink/dsh-cert-mcp)** | 🧊 已冻结 — 见仓库 README |
 | **[dsh-checkpoint-rewind](https://github.com/PerryLink/dsh-checkpoint-rewind)** |  |
 | **[dsh-click](https://github.com/PerryLink/dsh-click)** |  |
 | **[dsh-composer-history](https://github.com/PerryLink/dsh-composer-history)** |  |
 | **[dsh-contract-stance](https://github.com/PerryLink/dsh-contract-stance)** |  |
 | **[dsh-customs-doc-check](https://github.com/PerryLink/dsh-customs-doc-check)** |  |
-| **[dsh-data-quality](https://github.com/PerryLink/dsh-data-quality)** |  |
+| **[dsh-data-quality](https://github.com/PerryLink/dsh-data-quality)** | 🧊 已冻结 — 见仓库 README |
 | **[dsh-demurrage-ledger](https://github.com/PerryLink/dsh-demurrage-ledger)** |  |
 | **[dsh-doublecheck](https://github.com/PerryLink/dsh-doublecheck)** |  |
 | **[dsh-drill-script-check](https://github.com/PerryLink/dsh-drill-script-check)** |  |
@@ -360,7 +473,7 @@ This project is part of the DeepSeek Harness plugin family from [PerryLink](http
 | **[dsh-mask](https://github.com/PerryLink/dsh-mask)** |  |
 | **[dsh-mcp-panel](https://github.com/PerryLink/dsh-mcp-panel)** |  |
 | **[dsh-medrec-qc](https://github.com/PerryLink/dsh-medrec-qc)** |  |
-| **[dsh-memento](https://github.com/PerryLink/dsh-memento)** |  |
+| **[dsh-memento](https://github.com/PerryLink/dsh-memento)** | 🧊 已冻结 — 见仓库 README |
 | **[dsh-nsfc-form-check](https://github.com/PerryLink/dsh-nsfc-form-check)** |  |
 | **[dsh-nurse-record-check](https://github.com/PerryLink/dsh-nurse-record-check)** |  |
 | **[dsh-observe](https://github.com/PerryLink/dsh-observe)** |  |
@@ -372,10 +485,10 @@ This project is part of the DeepSeek Harness plugin family from [PerryLink](http
 | **[dsh-permit-report-check](https://github.com/PerryLink/dsh-permit-report-check)** |  |
 | **[dsh-pipeline-check](https://github.com/PerryLink/dsh-pipeline-check)** |  |
 | **[dsh-pleading-draft](https://github.com/PerryLink/dsh-pleading-draft)** |  |
-| **[dsh-plugin-doctor](https://github.com/PerryLink/dsh-plugin-doctor)** |  |
+| **[dsh-plugin-doctor](https://github.com/PerryLink/dsh-plugin-doctor)** | 🚫 已退役（仓库已归档） |
 | **[dsh-plugin-guide](https://github.com/PerryLink/dsh-plugin-guide)** |  |
-| **[dsh-plugin-kit](https://github.com/PerryLink/dsh-plugin-kit)** |  |
-| **[dsh-plugin-upgrade](https://github.com/PerryLink/dsh-plugin-upgrade)** |  |
+| **[dsh-plugin-kit](https://github.com/PerryLink/dsh-plugin-kit)** | 🚫 已退役（仓库已归档） |
+| **[dsh-plugin-upgrade](https://github.com/PerryLink/dsh-plugin-upgrade)** | 🚫 已退役（仓库已归档） |
 | **[dsh-policy-brief-draft](https://github.com/PerryLink/dsh-policy-brief-draft)** |  |
 | **[dsh-power-loss-split](https://github.com/PerryLink/dsh-power-loss-split)** |  |
 | **[dsh-power-ticket-check](https://github.com/PerryLink/dsh-power-ticket-check)** |  |
@@ -387,7 +500,7 @@ This project is part of the DeepSeek Harness plugin family from [PerryLink](http
 | **[dsh-review-reply-check](https://github.com/PerryLink/dsh-review-reply-check)** |  |
 | **[dsh-rulefile-check](https://github.com/PerryLink/dsh-rulefile-check)** |  |
 | **[dsh-safety-brief-check](https://github.com/PerryLink/dsh-safety-brief-check)** |  |
-| **[dsh-score](https://github.com/PerryLink/dsh-score)** |  |
+| **[dsh-score](https://github.com/PerryLink/dsh-score)** | 🧊 已冻结 — 见仓库 README |
 | **[dsh-session-sync](https://github.com/PerryLink/dsh-session-sync)** |  |
 | **[dsh-site-log-check](https://github.com/PerryLink/dsh-site-log-check)** |  |
 | **[dsh-security-pack](https://github.com/PerryLink/dsh-security-pack)** |  |
@@ -399,20 +512,22 @@ This project is part of the DeepSeek Harness plugin family from [PerryLink](http
 | **[dsh-tender-extract](https://github.com/PerryLink/dsh-tender-extract)** |  |
 | **[dsh-tender-matrix](https://github.com/PerryLink/dsh-tender-matrix)** |  |
 | **[dsh-test-drive](https://github.com/PerryLink/dsh-test-drive)** |  |
-| **[dsh-ticktick](https://github.com/PerryLink/dsh-ticktick)** |  |
+| **[dsh-ticktick](https://github.com/PerryLink/dsh-ticktick)** | 🚫 已退役（仓库已归档） |
 | **[dsh-translate](https://github.com/PerryLink/dsh-translate)** |  |
 | **[dsh-warranty-calc](https://github.com/PerryLink/dsh-warranty-calc)** |  |
-| **[dsh-budget](https://github.com/PerryLink/dsh-budget)** | 🧊 FROZEN — see the repo README |
-| **[dsh-claude-move](https://github.com/PerryLink/dsh-claude-move)** | 🧊 FROZEN — see the repo README |
-| **[dsh-defend](https://github.com/PerryLink/dsh-defend)** | 🧊 FROZEN — see the repo README |
-| **[dsh-draw](https://github.com/PerryLink/dsh-draw)** | 🧊 FROZEN — see the repo README |
-| **[dsh-reach](https://github.com/PerryLink/dsh-reach)** | 🧊 FROZEN — see the repo README |
-| **[dsh-background-agents](https://github.com/PerryLink/dsh-background-agents)** | 🚫 RETIRED — see the repo README |
-| **[dsh-session-pin](https://github.com/PerryLink/dsh-session-pin)** | 🚫 RETIRED — see the repo README |
-| **[dsh-team-rooms](https://github.com/PerryLink/dsh-team-rooms)** | 🚫 RETIRED — see the repo README |
+| **[dsh-budget](https://github.com/PerryLink/dsh-budget)** | 🧊 已冻结 — 见仓库 README |
+| **[dsh-claude-move](https://github.com/PerryLink/dsh-claude-move)** | 🧊 已冻结 — 见仓库 README |
+| **[dsh-defend](https://github.com/PerryLink/dsh-defend)** | 🧊 已冻结 — 见仓库 README |
+| **[dsh-draw](https://github.com/PerryLink/dsh-draw)** | 🧊 已冻结 — 见仓库 README |
+| **[dsh-reach](https://github.com/PerryLink/dsh-reach)** | 🧊 已冻结 — 见仓库 README |
+| **[dsh-background-agents](https://github.com/PerryLink/dsh-background-agents)** | 🚫 已退役（仓库已归档） |
+| **[dsh-session-pin](https://github.com/PerryLink/dsh-session-pin)** | 🚫 已退役（仓库已归档） |
+| **[dsh-team-rooms](https://github.com/PerryLink/dsh-team-rooms)** | 🚫 已退役（仓库已归档） |
 
 </details>
 
 ## License
 
-[Apache License 2.0](LICENSE) © 2026 dsh-security-pack contributors
+[LICENSE](LICENSE)（Apache License 2.0）© 2026 dsh-security-pack contributors
+
+<p align="center"><sub>Apache-2.0 · 社区插件，与 DeepSeek 无关。</sub></p>
