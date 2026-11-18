@@ -333,7 +333,7 @@ The survey and query snapshot live in [`docs/ecosystem-conflict-check.md`](docs/
 
 | Surface | Status |
 |---|---|
-| Harness | DeepSeek Harness **`dsh-v0.2.1-alpha.1`** (GitHub tag, verified 2026-09-25: full gate chain + profile install smoke). npm dependency line: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.1.5-alpha.1 <0.2.0`). The session envelope keeps its ignorable field for stored-log read compatibility only — Session.append still cannot stamp it, so audit-gate behavior is unchanged. |
+| Harness | DeepSeek Harness **`dsh-v0.2.2-rc.4`** (GitHub tag, verified 2026-11-18: full gate chain + profile install smoke). npm dependency line: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.1.5-alpha.1 <0.2.0 \|\| >=0.2.2-0 <0.3.0`). The session envelope keeps its ignorable field for stored-log read compatibility only — Session.append still cannot stamp it, so audit-gate behavior is unchanged. |
 | Node | `^22.19.0 \|\| >=24.0.0` (the DeepSeek Harness runtime) |
 | Platforms | All (the skills are content; the provider is a host plugin) |
 | Model | Any (skills load on demand via the `skill` tool; `plugin_vet` is deterministic) |

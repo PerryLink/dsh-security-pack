@@ -333,7 +333,7 @@ O levantamento e o snapshot das consultas estão em [`docs/ecosystem-conflict-ch
 
 | Superfície | Status |
 |---|---|
-| Harness | DeepSeek Harness **`dsh-v0.2.1-alpha.1`** (tag do GitHub, verificado em 2026-09-25: cadeia completa de portas + smoke de instalação de perfil). Linha de dependência npm: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.1.5-alpha.1 <0.2.0`). O envelope de sessão mantém seu campo ignorable apenas para compatibilidade de leitura de logs armazenados — o Session.append ainda não consegue estampá-lo, então o comportamento da porta não muda. |
+| Harness | DeepSeek Harness **`dsh-v0.2.2-rc.4`** (tag do GitHub, verificado em 2026-11-18: cadeia completa de portas + smoke de instalação de perfil). Linha de dependência npm: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.1.5-alpha.1 <0.2.0 \|\| >=0.2.2-0 <0.3.0`). O envelope de sessão mantém seu campo ignorable apenas para compatibilidade de leitura de logs armazenados — o Session.append ainda não consegue estampá-lo, então o comportamento da porta não muda. |
 | Node | `^22.19.0 \|\| >=24.0.0` (o runtime do DeepSeek Harness) |
 | Plataformas | Todas (as skills são conteúdo; o provider é um plugin de host) |
 | Modelo | Qualquer (as skills carregam sob demanda pela ferramenta `skill`; o `plugin_vet` é determinístico) |

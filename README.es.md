@@ -333,7 +333,7 @@ El sondeo y la instantánea de consultas están en [`docs/ecosystem-conflict-che
 
 | Superficie | Estado |
 |---|---|
-| Harness | DeepSeek Harness **`dsh-v0.2.1-alpha.1`** (tag de GitHub, verificado el 2026-09-25: cadena completa de puertas + smoke de instalación de perfil). Línea de dependencia npm: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.1.5-alpha.1 <0.2.0`). El sobre de sesión conserva su campo ignorable solo para compatibilidad de lectura de logs almacenados — Session.append aún no puede estamparlo, así que el comportamiento de la puerta no cambia. |
+| Harness | DeepSeek Harness **`dsh-v0.2.2-rc.4`** (tag de GitHub, verificado el 2026-11-18: cadena completa de puertas + smoke de instalación de perfil). Línea de dependencia npm: `@deepseek-ai/dsh` **0.1.5-rc.2** (peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.1.5-alpha.1 <0.2.0 \|\| >=0.2.2-0 <0.3.0`). El sobre de sesión conserva su campo ignorable solo para compatibilidad de lectura de logs almacenados — Session.append aún no puede estamparlo, así que el comportamiento de la puerta no cambia. |
 | Node | `^22.19.0 \|\| >=24.0.0` (el runtime de DeepSeek Harness) |
 | Plataformas | Todas (las skills son contenido; el provider es un plugin de host) |
 | Modelo | Cualquiera (las skills cargan bajo demanda con la herramienta `skill`; `plugin_vet` es determinista) |
