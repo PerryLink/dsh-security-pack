@@ -360,7 +360,7 @@ node scripts/check-readme-sync.mjs  # paridade de estrutura e chaves de configur
 
 ### Reproduzir o benchmark
 
-![dsh-security-pack: execução real de terminal](docs/assets/dsh-skill-pack-security-demo.gif)
+![dsh-security-pack: execução real de terminal](docs/assets/dsh-security-pack-demo.gif)
 
 *Repetição animada de uma execução real registrada neste repositório.*
 

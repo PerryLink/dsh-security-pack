@@ -34,7 +34,7 @@ dsh plugin --profile <name> add dsh-security-pack
 
 ## 它是什么
 
-![dsh-security-pack 真实终端运行](docs/assets/dsh-skill-pack-security-demo.gif)
+![dsh-security-pack 真实终端运行](docs/assets/dsh-security-pack-demo.gif)
 
 *本仓库一次真实运行的动图回放。*
 

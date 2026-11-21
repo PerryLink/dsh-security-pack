@@ -184,7 +184,7 @@ The Claude Code ecosystem's 3000+ skills prove the distribution value of this sh
 
 ### Examples
 
-![dsh-security-pack: real terminal run](docs/assets/dsh-skill-pack-security-demo.gif)
+![dsh-security-pack: real terminal run](docs/assets/dsh-security-pack-demo.gif)
 
 *Animated replay of a real run recorded in this repository.*
 
