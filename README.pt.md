@@ -360,6 +360,10 @@ node scripts/check-readme-sync.mjs  # paridade de estrutura e chaves de configur
 
 ### Reproduzir o benchmark
 
+![dsh-security-pack: execução real de terminal](docs/assets/dsh-skill-pack-security-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
 O conjunto de regressão de amostras envenenadas (taxa de detecção / FPR / F1 por classe em 38 amostras, mais a lacuna frente a OSV/Socket) está em [`benchmark/RESULTS.md`](benchmark/RESULTS.md); regenere com `pnpm --dir provider run build && node benchmark/run.mjs` (zero dependências novas).
 
 ### Regerar as imagens

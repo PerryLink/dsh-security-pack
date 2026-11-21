@@ -41,6 +41,11 @@ dsh plugin --profile <name> add dsh-security-pack
   <img src="docs/assets/dsh-security-pack-flow-v5-light.svg" width="100%" alt="dsh-security-pack संरचना: प्रोफ़ाइल patch दो चैनल खोलता है — स्किल चैनल (skills/ और skills-en/ rank से खोजे जाते हैं, ctx.skills पर रजिस्टर होते हैं और skill टूल से माँग पर लोड होते हैं; 8 में से 4 स्किल जाँचों द्वारा उद्धृत हैं) और plugin_vet गेट चैनल (target → फ़ाइल सेट → 9 जाँचें); दोनों एक ही रिस्क कार्ड और एक ही इंस्टॉल गेट पर मिलते हैं, और हर निष्कर्ष किसी स्किल सेक्शन को उद्धृत करता है">
 </picture>
 
+![dsh-security-pack का असली टर्मिनल रन](docs/assets/dsh-skill-pack-security-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (कोई एक चैनल चुनें):

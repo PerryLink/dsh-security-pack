@@ -184,6 +184,10 @@ The Claude Code ecosystem's 3000+ skills prove the distribution value of this sh
 
 ### Examples
 
+![dsh-security-pack: real terminal run](docs/assets/dsh-skill-pack-security-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 These use the plugin's real command surface; install once, then call one of the entry points.
 
 - **Detailed example** — `plugin_vet` (tool): run the pre-install scan against an `owner/repo` target and return the five-dimension risk card.

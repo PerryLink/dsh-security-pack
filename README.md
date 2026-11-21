@@ -34,6 +34,10 @@ dsh plugin --profile <name> add dsh-security-pack
 
 ## 它是什么
 
+![dsh-security-pack 真实终端运行](docs/assets/dsh-skill-pack-security-demo.gif)
+
+*本仓库一次真实运行的动图回放。*
+
 `dsh-security-pack` 把 8 套安全审计方法论做成 `SKILL.md` 技能，并附带一个安装前供应链扫描器。模型在会话目录里发现技能，用 `skill` 工具按需加载；`plugin_vet` 由可选的 `provider/` 插件注册到 `ctx.tools`，对 GitHub `owner/repo` 或本地包路径做一次静态体检。技能负责「怎么审」，工具负责「先扫一遍」——两者共用同一套方法论，每条发现都会指回对应技能章节。
 
 <picture>
