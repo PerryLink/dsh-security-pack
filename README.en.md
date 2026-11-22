@@ -247,7 +247,7 @@ Most-used keys:
 | `vet.maxFindingsPerCheck` | `12` | Findings cap per check |
 | `vet.dataResponsibility` | `true` | Run the data-responsibility review (disable per deployment) |
 | `vet.externalScanners` | `true` | Orchestrate `osv-scanner`/`npm audit` when their CLIs are present; `false` forces the built-in self-computed dependency scan |
-| `vet.userAgent` | `dsh-security-pack/3.0.1 (+https://github.com/PerryLink/dsh-security-pack)` | Fetch user-agent |
+| `vet.userAgent` | `dsh-security-pack/3.0.3 (+https://github.com/PerryLink/dsh-security-pack)` | Fetch user-agent |
 | `vet.gate.policy` | `warn` | Install gate: `warn` (non-blocking) or `deny` (block on FAIL) |
 
 </details>
