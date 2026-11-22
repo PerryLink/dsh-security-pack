@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.2] - 2026-11-22
+
+### Changed
+
+- Compatibility: declare DeepSeek Harness 0.2.3-alpha.1 support. `engines.dsh` and every `@deepseek-ai/dsh-*` peer range gain the append-only clause `|| >=0.2.3-0 <0.3.0-0`; the five-language READMEs refresh their verification stamp to `dsh-v0.2.3-alpha.1` (verified 2026-11-22).
+
 ## [3.0.1] - 2026-11-02
 
 ### Fixed
