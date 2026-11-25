@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.4] - 2026-11-24
+
+### Changed
+
+- **`engines.dsh` is a single `>=0.2.0-0 <0.4.0-0` range** in the provider manifest, so the community plugin index's `0.2.0-0` admission line accepts the published package. Peer dependency ranges are unchanged.
+- Re-sync every version carrier to 3.0.4 (`VERSION`, both `package.json` files, the 16 `SKILL.md` metadata versions, both runtime user-agent defaults, and the five `vet.userAgent` README rows) — the engines bump had updated only `provider/package.json`, so `verify` failed with `provider/package.json version 3.0.4 must equal VERSION (3.0.3)`.
+
 ## [3.0.3] - 2026-11-22
 
 ### Changed

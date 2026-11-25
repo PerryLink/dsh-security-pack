@@ -4,7 +4,7 @@ description: 'Dependency supply-chain audit: reading pnpm/npm audit output and e
 whenToUse: 'Use when the user asks to audit or inventory project dependency security (vulnerabilities, licenses, poisoning, lockfile drift), to interpret an audit report, to judge whether a dependency may be introduced, or to write a dependency-audit conclusion. Upgrading a single dependency and plain feature development do not trigger this skill.'
 metadata:
   pack: dsh-security-pack
-  version: '3.0.3'
+  version: '3.0.4'
 ---
 # Dependency audit (dependency-audit)
 
