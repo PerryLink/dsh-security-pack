@@ -248,7 +248,7 @@ Claude Code इकोसिस्टम के 3000+ स्किल इस स�
 | `vet.maxFindingsPerCheck` | `12` | प्रति जाँच निष्कर्ष सीमा |
 | `vet.dataResponsibility` | `true` | डेटा-जिम्मेदारी समीक्षा चलाएँ (प्रति परिनियोजन बंद करें) |
 | `vet.externalScanners` | `true` | `osv-scanner`/`npm audit` CLIs मौजूद होने पर उन्हें ऑर्केस्ट्रेट करें; `false` अंतर्निहित स्व-गणना निर्भरता स्कैन पर बाध्य करता है |
-| `vet.userAgent` | `dsh-security-pack/3.0.4 (+https://github.com/PerryLink/dsh-security-pack)` | डाउनलोड user-agent |
+| `vet.userAgent` | `dsh-security-pack/3.0.5 (+https://github.com/PerryLink/dsh-security-pack)` | डाउनलोड user-agent |
 | `vet.gate.policy` | `warn` | इंस्टॉल गेट: `warn` (गैर-अवरोधक) या `deny` (FAIL पर अवरोध) |
 
 </details>

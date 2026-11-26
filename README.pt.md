@@ -243,7 +243,7 @@ Chaves mais usadas:
 | `vet.maxFindingsPerCheck` | `12` | Limite de achados por verificação |
 | `vet.dataResponsibility` | `true` | Executa a revisão de responsabilidade de dados (pode ser desativada por implantação) |
 | `vet.externalScanners` | `true` | Orquestra `osv-scanner`/`npm audit` quando suas CLIs estão presentes; `false` força a varredura de dependências autocalculada |
-| `vet.userAgent` | `dsh-security-pack/3.0.4 (+https://github.com/PerryLink/dsh-security-pack)` | User-agent de download |
+| `vet.userAgent` | `dsh-security-pack/3.0.5 (+https://github.com/PerryLink/dsh-security-pack)` | User-agent de download |
 | `vet.gate.policy` | `warn` | Porta de instalação: `warn` (não bloqueante) ou `deny` (bloqueia em FAIL) |
 
 </details>

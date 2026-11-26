@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.5] - 2026-11-26
+
+### Fixed
+
+- **The published 3.0.4 tarball embedded stale skill metadata and user agents.** 3.0.4 was published with lifecycle scripts skipped, so `prepack` never refreshed `pack/` (its 16 `SKILL.md` files still read `metadata.version: '3.0.1'`) and `provider/lib` still read the 3.0.3 user agents while `provider/package.json` said 3.0.4. The repository carriers were already synced to 3.0.4; this patch republishes with `prepack` enabled, rebuilds `provider/lib`, and commits the refreshed embedded `pack/` so the tarball's skills, user agents and package version all read 3.0.5. No behaviour change.
+
 ## [3.0.4] - 2026-11-24
 
 ### Changed

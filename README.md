@@ -247,7 +247,7 @@ Claude Code 生态 3000+ 技能已经证明这种形态的分发价值。DSH 的
 | `vet.maxFindingsPerCheck` | `12` | 每项检查的发现数上限 |
 | `vet.dataResponsibility` | `true` | 运行数据责任审查（可按部署禁用） |
 | `vet.externalScanners` | `true` | 当 `osv-scanner`/`npm audit` CLI 存在时编排它们；`false` 强制使用内置自计算依赖扫描 |
-| `vet.userAgent` | `dsh-security-pack/3.0.4 (+https://github.com/PerryLink/dsh-security-pack)` | 下载用的 user-agent |
+| `vet.userAgent` | `dsh-security-pack/3.0.5 (+https://github.com/PerryLink/dsh-security-pack)` | 下载用的 user-agent |
 | `vet.gate.policy` | `warn` | 安装门禁：`warn`（不阻断）或 `deny`（FAIL 时阻断） |
 
 </details>
